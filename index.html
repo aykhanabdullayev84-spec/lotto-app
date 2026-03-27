@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Lucky Number - Анонимная платформа</title>
+    <title>Lucky Number - Анонимная игровая платформа</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     
@@ -96,43 +96,13 @@
             font-size: 0.9em;
         }
 
-        .btn-deposit {
-            background: linear-gradient(135deg, #2DD4BF, #1e9b8a);
-            color: #0A0F2A;
-        }
-
-        .btn-withdraw {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-        }
-
-        .btn-save {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .btn-export {
-            background: rgba(45, 212, 191, 0.2);
-            border: 1px solid #2DD4BF;
-            color: #2DD4BF;
-        }
-
-        .btn-import {
-            background: rgba(245, 176, 66, 0.2);
-            border: 1px solid #F5B042;
-            color: #F5B042;
-        }
-
-        .btn-reset {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid #e74c3c;
-            color: #e74c3c;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
+        .btn-deposit { background: linear-gradient(135deg, #2DD4BF, #1e9b8a); color: #0A0F2A; }
+        .btn-withdraw { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; }
+        .btn-save { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; }
+        .btn-export { background: rgba(45, 212, 191, 0.2); border: 1px solid #2DD4BF; color: #2DD4BF; }
+        .btn-import { background: rgba(245, 176, 66, 0.2); border: 1px solid #F5B042; color: #F5B042; }
+        .btn-reset { background: rgba(231, 76, 60, 0.2); border: 1px solid #e74c3c; color: #e74c3c; }
+        .btn:hover { transform: translateY(-2px); }
 
         /* Navigation */
         .nav {
@@ -544,16 +514,19 @@
                 this.myPlayerId = null;
                 this.updateInterval = null;
 
-                // Комнаты (3, 5, 7, 10 игроков для разных номиналов)
+                // КОМНАТЫ: 3, 5, 7, 10 игроков для номиналов 1000, 2000, 5000 RUB
                 this.rooms = [
+                    // 1000 RUB
                     { id: '1000_3', nominal: 1000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 2000 RUB", winners: 1, prize: 2000, fee: 1000 },
                     { id: '1000_5', nominal: 1000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 2000 RUB", winners: 2, prize: 2000, fee: 1000 },
                     { id: '1000_7', nominal: 1000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 1000 RUB", winners: 3, prize: 1000, fee: 1000 },
                     { id: '1000_10', nominal: 1000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×2000 + возврат 1000", winners: 3, prize: 2000, refund: 1000, fee: 3000 },
+                    // 2000 RUB
                     { id: '2000_3', nominal: 2000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 4000 RUB", winners: 1, prize: 4000, fee: 2000 },
                     { id: '2000_5', nominal: 2000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 4000 RUB", winners: 2, prize: 4000, fee: 2000 },
                     { id: '2000_7', nominal: 2000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 2000 RUB", winners: 3, prize: 2000, fee: 2000 },
                     { id: '2000_10', nominal: 2000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×4000 + возврат 2000", winners: 3, prize: 4000, refund: 2000, fee: 6000 },
+                    // 5000 RUB
                     { id: '5000_3', nominal: 5000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 10000 RUB", winners: 1, prize: 10000, fee: 5000 },
                     { id: '5000_5', nominal: 5000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 10000 RUB", winners: 2, prize: 10000, fee: 5000 },
                     { id: '5000_7', nominal: 5000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 5000 RUB", winners: 3, prize: 5000, fee: 5000 },
@@ -565,7 +538,7 @@
                 setInterval(() => this.checkFullRooms(), 2000);
             }
 
-            // Генерация анонимного ID
+            // ========== УПРАВЛЕНИЕ ID И ДАННЫМИ ==========
             getOrCreateUserId() {
                 let id = localStorage.getItem('lucky_anonymous_id');
                 if (!id) {
@@ -592,12 +565,7 @@
             }
 
             saveIdToFile() {
-                const data = {
-                    type: 'lucky_number_id_backup',
-                    userId: this.userId,
-                    createdAt: new Date().toISOString(),
-                    note: 'Сохраните этот файл для восстановления ID'
-                };
+                const data = { type: 'lucky_number_id_backup', userId: this.userId, createdAt: new Date().toISOString() };
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -615,15 +583,8 @@
                     userId: this.userId,
                     balance: this.balance,
                     history: this.history,
-                    rooms: this.rooms.map(room => ({
-                        id: room.id,
-                        nominal: room.nominal,
-                        maxPlayers: room.maxPlayers,
-                        players: room.players,
-                        gameActive: room.gameActive
-                    }))
+                    rooms: this.rooms.map(room => ({ id: room.id, nominal: room.nominal, maxPlayers: room.maxPlayers, players: room.players, gameActive: room.gameActive }))
                 };
-
                 const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -641,12 +602,10 @@
                 input.onchange = (e) => {
                     const file = e.target.files[0];
                     if (!file) return;
-
                     const reader = new FileReader();
                     reader.onload = (event) => {
                         try {
                             const imported = JSON.parse(event.target.result);
-                            
                             if (imported.userId) {
                                 this.userId = imported.userId;
                                 localStorage.setItem('lucky_anonymous_id', this.userId);
@@ -663,7 +622,6 @@
                                     }
                                 });
                             }
-
                             this.saveBalance();
                             this.saveHistory();
                             this.saveRooms();
@@ -680,21 +638,14 @@
 
             resetAccount() {
                 if (confirm('⚠️ ВНИМАНИЕ! Это удалит ВСЕ ваши данные: баланс, историю, ID. Продолжить?')) {
-                    const oldUserId = this.userId;
-                    localStorage.removeItem(`lucky_balance_${oldUserId}`);
-                    localStorage.removeItem(`lucky_history_${oldUserId}`);
-                    localStorage.removeItem(`lucky_rooms_${oldUserId}`);
+                    localStorage.removeItem(`lucky_balance_${this.userId}`);
+                    localStorage.removeItem(`lucky_history_${this.userId}`);
+                    localStorage.removeItem(`lucky_rooms_${this.userId}`);
                     localStorage.removeItem('lucky_anonymous_id');
-                    
-                    // Создаем новый ID
                     this.userId = this.getOrCreateUserId();
                     this.balance = 10000;
                     this.history = [];
-                    this.rooms.forEach(room => {
-                        room.players = [];
-                        room.gameActive = false;
-                    });
-                    
+                    this.rooms.forEach(room => { room.players = []; room.gameActive = false; });
                     this.saveBalance();
                     this.saveHistory();
                     this.saveRooms();
@@ -703,23 +654,11 @@
                 }
             }
 
-            loadBalance() {
-                return parseInt(localStorage.getItem(`lucky_balance_${this.userId}`)) || 10000;
-            }
-
-            saveBalance() {
-                localStorage.setItem(`lucky_balance_${this.userId}`, this.balance);
-            }
-
-            loadHistory() {
-                const saved = localStorage.getItem(`lucky_history_${this.userId}`);
-                return saved ? JSON.parse(saved) : [];
-            }
-
-            saveHistory() {
-                localStorage.setItem(`lucky_history_${this.userId}`, JSON.stringify(this.history));
-            }
-
+            // ========== ХРАНЕНИЕ ДАННЫХ ==========
+            loadBalance() { return parseInt(localStorage.getItem(`lucky_balance_${this.userId}`)) || 10000; }
+            saveBalance() { localStorage.setItem(`lucky_balance_${this.userId}`, this.balance); }
+            loadHistory() { const saved = localStorage.getItem(`lucky_history_${this.userId}`); return saved ? JSON.parse(saved) : []; }
+            saveHistory() { localStorage.setItem(`lucky_history_${this.userId}`, JSON.stringify(this.history)); }
             loadRooms() {
                 const saved = localStorage.getItem(`lucky_rooms_${this.userId}`);
                 if (saved) {
@@ -734,18 +673,12 @@
                     }
                 }
             }
-
             saveRooms() {
-                const roomsToSave = this.rooms.map(room => ({
-                    id: room.id,
-                    nominal: room.nominal,
-                    maxPlayers: room.maxPlayers,
-                    players: room.players,
-                    gameActive: room.gameActive
-                }));
+                const roomsToSave = this.rooms.map(room => ({ id: room.id, nominal: room.nominal, maxPlayers: room.maxPlayers, players: room.players, gameActive: room.gameActive }));
                 localStorage.setItem(`lucky_rooms_${this.userId}`, JSON.stringify(roomsToSave));
             }
 
+            // ========== UI И УВЕДОМЛЕНИЯ ==========
             showNotification(message, isError = false) {
                 const notification = document.createElement('div');
                 notification.className = 'notification';
@@ -765,7 +698,6 @@
             renderRooms() {
                 const grid = document.getElementById('roomsGrid');
                 if (!grid) return;
-
                 grid.innerHTML = this.rooms.map((room, idx) => `
                     <div class="room-card">
                         <div class="room-header">
@@ -780,8 +712,7 @@
                         <div>👥 ${room.players.length}/${room.maxPlayers} игроков</div>
                         <button class="join-btn" onclick="game.joinRoom(${idx})" 
                             ${room.players.length >= room.maxPlayers || room.gameActive || this.balance < room.nominal ? 'disabled' : ''}>
-                            ${room.players.length >= room.maxPlayers ? '🔴 Полная' : 
-                              room.gameActive ? '🎲 Игра идет' : `Войти (${room.nominal.toLocaleString()} RUB)`}
+                            ${room.players.length >= room.maxPlayers ? '🔴 Полная' : room.gameActive ? '🎲 Игра идет' : `Войти (${room.nominal.toLocaleString()} RUB)`}
                         </button>
                     </div>
                 `).join('');
@@ -793,39 +724,25 @@
                     this.showNotification('Нельзя войти в эту комнату', true);
                     return;
                 }
-
                 this.balance -= room.nominal;
                 this.saveBalance();
 
                 const taken = room.players.map(p => p.number);
                 let available = [];
-                for (let i = 1; i <= room.maxPlayers; i++) {
-                    if (!taken.includes(i)) available.push(i);
-                }
+                for (let i = 1; i <= room.maxPlayers; i++) if (!taken.includes(i)) available.push(i);
                 const number = available[Math.floor(Math.random() * available.length)];
                 this.myPlayerId = Date.now() + Math.random();
-
-                room.players.push({
-                    id: this.myPlayerId,
-                    number: number,
-                    joinedAt: new Date().toISOString()
-                });
-
+                room.players.push({ id: this.myPlayerId, number: number, joinedAt: new Date().toISOString() });
                 this.saveRooms();
                 this.render();
                 this.showNotification(`✅ Вы вошли под номером ${number}! (${room.players.length}/${room.maxPlayers})`);
-
-                if (room.players.length === room.maxPlayers) {
-                    this.startGame(roomIdx);
-                } else {
-                    this.openGameModal(roomIdx);
-                }
+                if (room.players.length === room.maxPlayers) this.startGame(roomIdx);
+                else this.openGameModal(roomIdx);
             }
 
             openGameModal(roomIdx) {
                 const room = this.rooms[roomIdx];
                 this.currentRoom = { ...room, index: roomIdx };
-
                 const modal = document.getElementById('gameModal');
                 document.getElementById('modalRoomTitle').textContent = `Комната ${room.nominal.toLocaleString()} RUB - Ваш номер ${room.players.find(p => p.id === this.myPlayerId)?.number || '?'}`;
                 document.getElementById('maxPlayers').textContent = room.maxPlayers;
@@ -842,7 +759,6 @@
                     </div>
                 `;
                 modal.classList.add('active');
-
                 if (this.updateInterval) clearInterval(this.updateInterval);
                 this.updateInterval = setInterval(() => {
                     const updatedRoom = this.rooms[roomIdx];
@@ -857,11 +773,7 @@
             }
 
             checkFullRooms() {
-                this.rooms.forEach((room, idx) => {
-                    if (room.players.length === room.maxPlayers && !room.gameActive) {
-                        this.startGame(idx);
-                    }
-                });
+                this.rooms.forEach((room, idx) => { if (room.players.length === room.maxPlayers && !room.gameActive) this.startGame(idx); });
             }
 
             startGame(roomIdx) {
@@ -869,13 +781,9 @@
                 if (room.gameActive) return;
                 room.gameActive = true;
                 this.saveRooms();
-
                 const modal = document.getElementById('gameModal');
-                if (modal && modal.classList.contains('active')) {
-                    document.getElementById('gameStatus').innerHTML = '<h3>🎰 Игра начинается! Крутим рулетку...</h3>';
-                }
+                if (modal && modal.classList.contains('active')) document.getElementById('gameStatus').innerHTML = '<h3>🎰 Игра начинается! Крутим рулетку...</h3>';
                 this.render();
-
                 setTimeout(() => this.spinWheel(roomIdx), 2000);
             }
 
@@ -883,64 +791,30 @@
                 const room = this.rooms[roomIdx];
                 const totalPot = room.nominal * room.players.length;
                 const platformFee = room.fee;
-
                 const players = [...room.players];
-                for (let i = players.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [players[i], players[j]] = [players[j], players[i]];
-                }
-
+                for (let i = players.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [players[i], players[j]] = [players[j], players[i]]; }
                 const winners = [];
-                for (let i = 0; i < room.winners && i < players.length; i++) {
-                    winners.push({ player: players[i], prize: room.prize });
-                }
-                if (room.refund && players.length >= room.winners + 1) {
-                    winners.push({ player: players[room.winners], prize: room.refund });
-                }
-
+                for (let i = 0; i < room.winners && i < players.length; i++) winners.push({ player: players[i], prize: room.prize });
+                if (room.refund && players.length >= room.winners + 1) winners.push({ player: players[room.winners], prize: room.refund });
                 const wheel = document.getElementById('wheel');
                 const wheelCenter = document.getElementById('wheelCenter');
-
                 if (wheel) {
                     wheel.classList.add('spinning');
-                    const spinInterval = setInterval(() => {
-                        const randomNum = Math.floor(Math.random() * room.maxPlayers) + 1;
-                        if (wheelCenter) wheelCenter.textContent = randomNum;
-                    }, 100);
-
+                    const spinInterval = setInterval(() => { const randomNum = Math.floor(Math.random() * room.maxPlayers) + 1; if (wheelCenter) wheelCenter.textContent = randomNum; }, 100);
                     setTimeout(() => {
                         clearInterval(spinInterval);
                         wheel.classList.remove('spinning');
                         if (wheelCenter) wheelCenter.textContent = winners[0]?.player.number || '?';
-
                         let myWin = 0;
                         room.players = room.players.map(p => {
                             const win = winners.find(w => w.player.id === p.id);
-                            if (win) {
-                                if (p.id === this.myPlayerId) {
-                                    this.balance += win.prize;
-                                    myWin = win.prize;
-                                    this.saveBalance();
-                                }
-                            }
+                            if (win) { if (p.id === this.myPlayerId) { this.balance += win.prize; myWin = win.prize; this.saveBalance(); } }
                             return p;
                         });
-
-                        const gameRecord = {
-                            date: new Date().toLocaleString(),
-                            nominal: room.nominal,
-                            maxPlayers: room.maxPlayers,
-                            totalPot: totalPot,
-                            platformFee: platformFee,
-                            winners: winners.map(w => ({ number: w.player.number, prize: w.prize })),
-                            myWin: myWin
-                        };
+                        const gameRecord = { date: new Date().toLocaleString(), nominal: room.nominal, maxPlayers: room.maxPlayers, totalPot, platformFee, winners: winners.map(w => ({ number: w.player.number, prize: w.prize })), myWin };
                         this.history.unshift(gameRecord);
                         this.saveHistory();
-
                         const resultDiv = document.getElementById('gameResult');
-                        const winnersList = winners.map(w => `🎲 Номер ${w.player.number} - выиграл ${w.prize.toLocaleString()} RUB`).join('<br>');
-
                         resultDiv.innerHTML = `
                             <div class="result-box">
                                 <h3>🎉 РЕЗУЛЬТАТЫ РОЗЫГРЫША! 🎉</h3>
@@ -948,19 +822,13 @@
                                 <p><strong>💰 Комиссия платформы:</strong> ${platformFee.toLocaleString()} RUB</p>
                                 <hr>
                                 <h4>🏆 Победители:</h4>
-                                ${winnersList}
+                                ${winners.map(w => `🎲 Номер ${w.player.number} - выиграл ${w.prize.toLocaleString()} RUB`).join('<br>')}
                                 ${myWin ? `<h3 style="margin-top: 15px;">✨ ВЫ ВЫИГРАЛИ ${myWin.toLocaleString()} RUB! ✨</h3>` : '<p style="margin-top: 15px;">😢 В следующий раз повезет!</p>'}
                             </div>
                         `;
-
-                        this.rooms[roomIdx] = {
-                            ...room,
-                            players: [],
-                            gameActive: false
-                        };
+                        this.rooms[roomIdx] = { ...room, players: [], gameActive: false };
                         this.saveRooms();
                         this.render();
-
                         setTimeout(() => this.closeModal(), 8000);
                     }, 3000);
                 }
@@ -969,12 +837,7 @@
             renderHistory() {
                 const container = document.getElementById('historyList');
                 if (!container) return;
-
-                if (this.history.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">История игр пуста</div>';
-                    return;
-                }
-
+                if (this.history.length === 0) { container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">История игр пуста</div>'; return; }
                 container.innerHTML = this.history.slice(0, 20).map(game => `
                     <div class="history-item">
                         <strong>📅 ${game.date}</strong><br>
@@ -1004,9 +867,7 @@
                         this.saveBalance();
                         this.render();
                         this.showNotification(`✅ Заявка на вывод ${parseInt(amount).toLocaleString()} RUB принята. Для получения средств свяжитесь с поддержкой.`);
-                    } else {
-                        this.showNotification('❌ Недостаточно средств!', true);
-                    }
+                    } else { this.showNotification('❌ Недостаточно средств!', true); }
                 }
             }
 
