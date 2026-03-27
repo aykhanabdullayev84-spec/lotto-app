@@ -28,14 +28,15 @@
             padding: 24px;
         }
 
-        .header {
+        /* Navigation */
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 20px;
-            margin-bottom: 48px;
-            padding: 20px 24px;
+            margin-bottom: 30px;
+            padding: 16px 24px;
             background: rgba(30, 26, 58, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -43,7 +44,7 @@
         }
 
         .logo h1 {
-            font-size: 1.8em;
+            font-size: 1.6em;
             font-weight: 800;
             background: linear-gradient(135deg, #F5B042, #FFC75F);
             -webkit-background-clip: text;
@@ -51,75 +52,81 @@
             background-clip: text;
         }
         .logo p {
-            font-size: 0.8em;
+            font-size: 0.7em;
             color: #A0A3BD;
-            margin-top: 4px;
         }
 
-        .user-info {
+        .nav-links {
             display: flex;
-            gap: 20px;
-            align-items: center;
+            gap: 10px;
+        }
+        .nav-links button {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            border-radius: 40px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .nav-links button.active {
+            background: linear-gradient(135deg, #F5B042, #FFC75F);
+            color: #0A0F2A;
+        }
+        .nav-links button:hover:not(.active) {
+            background: rgba(255,255,255,0.1);
         }
 
-        .balance-card {
+        .balance-badge {
             background: linear-gradient(135deg, #2DD4BF, #1e9b8a);
             padding: 8px 20px;
             border-radius: 40px;
             text-align: center;
         }
-        .balance-card .label {
+        .balance-badge .label {
             font-size: 0.7em;
             opacity: 0.8;
         }
-        .balance-card .value {
-            font-size: 1.5em;
+        .balance-badge .value {
+            font-size: 1.3em;
             font-weight: 800;
         }
 
-        .btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9em;
-            font-family: 'Inter', sans-serif;
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
         }
-        .btn-primary {
-            background: #F5B042;
-            color: #0A0F2A;
+        .tab-content.active {
+            display: block;
         }
-        .btn-primary:hover {
-            background: #FFC75F;
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .section-title {
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: 700;
-            margin: 48px 0 24px;
+            margin: 40px 0 20px;
             padding-left: 16px;
             border-left: 4px solid #F5B042;
         }
 
+        /* Rooms Grid */
         .rooms-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
-            margin-bottom: 48px;
+            margin-bottom: 40px;
         }
 
         .room-card {
             background: #1E1A3A;
             border-radius: 20px;
-            padding: 24px;
+            padding: 20px;
             transition: all 0.2s ease;
             border: 1px solid rgba(255,255,255,0.1);
         }
@@ -132,10 +139,10 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         .room-bet {
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: 800;
             color: #F5B042;
         }
@@ -147,41 +154,38 @@
             background: rgba(45, 212, 191, 0.2);
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.8em;
+            font-size: 0.75em;
             color: #2DD4BF;
         }
         .prize-info {
             background: rgba(255,255,255,0.05);
-            padding: 12px;
+            padding: 10px;
             border-radius: 12px;
-            margin: 16px 0;
-            font-size: 0.85em;
-        }
-        .prize-info span {
-            color: #F5B042;
-            font-weight: bold;
+            margin: 12px 0;
+            font-size: 0.8em;
         }
         .player-avatars {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             flex-wrap: wrap;
-            margin: 16px 0;
+            margin: 12px 0;
         }
         .player-dot {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: linear-gradient(135deg, #F5B042, #FFC75F);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            font-size: 0.8em;
             color: #0A0F2A;
         }
         .join-btn {
             width: 100%;
-            margin-top: 16px;
-            padding: 12px;
+            margin-top: 12px;
+            padding: 10px;
             background: #F5B042;
             border: none;
             border-radius: 40px;
@@ -189,7 +193,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 1em;
+            font-size: 0.9em;
         }
         .join-btn:hover:not(:disabled) {
             background: #FFC75F;
@@ -200,6 +204,80 @@
             cursor: not-allowed;
         }
 
+        /* Cabinet Styles */
+        .cabinet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .cabinet-card {
+            background: rgba(30, 26, 58, 0.8);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .balance-large {
+            text-align: center;
+        }
+        .balance-large .amount {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #F5B042;
+        }
+        .payment-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .payment-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .deposit-btn {
+            background: linear-gradient(135deg, #2DD4BF, #1e9b8a);
+            color: white;
+        }
+        .withdraw-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-value {
+            color: #F5B042;
+            font-weight: 700;
+        }
+        .transaction-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .transaction-item {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+        }
+        .transaction-positive {
+            color: #2DD4BF;
+        }
+        .transaction-negative {
+            color: #e74c3c;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -219,7 +297,7 @@
         .modal-content {
             background: linear-gradient(135deg, #1E1A3A, #0A0F2A);
             border-radius: 24px;
-            padding: 32px;
+            padding: 24px;
             max-width: 800px;
             width: 90%;
             max-height: 90vh;
@@ -235,12 +313,12 @@
         .players-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
+            gap: 10px;
             margin: 20px 0;
         }
         .player-card {
             text-align: center;
-            padding: 12px;
+            padding: 10px;
             background: rgba(255,255,255,0.1);
             border-radius: 12px;
         }
@@ -254,12 +332,12 @@
             50% { transform: scale(1.05); }
         }
         .player-number {
-            font-size: 1.8em;
+            font-size: 1.5em;
             font-weight: 800;
         }
         .wheel {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             margin: 20px auto;
             border-radius: 50%;
             background: conic-gradient(#F5B042 0deg 36deg, #FFC75F 36deg 72deg, #2DD4BF 72deg 108deg, #F5B042 108deg 144deg, #FFC75F 144deg 180deg, #2DD4BF 180deg 216deg, #F5B042 216deg 252deg, #FFC75F 252deg 288deg, #2DD4BF 288deg 324deg, #F5B042 324deg 360deg);
@@ -274,19 +352,19 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background: #0A0F2A;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2em;
+            font-size: 1em;
             border: 2px solid #F5B042;
         }
         .result-box {
             background: linear-gradient(135deg, #F5B042, #FFC75F);
-            padding: 20px;
+            padding: 16px;
             border-radius: 16px;
             margin-top: 20px;
             text-align: center;
@@ -317,57 +395,106 @@
         }
         .history-item {
             background: rgba(255,255,255,0.05);
-            padding: 12px 16px;
+            padding: 12px;
             margin: 8px 0;
             border-radius: 12px;
-            font-size: 0.85em;
+            font-size: 0.8em;
             border-left: 3px solid #F5B042;
         }
         .fair-play-badge {
             text-align: center;
             margin-top: 40px;
             padding: 16px;
-            font-size: 0.75em;
+            font-size: 0.7em;
             color: #A0A3BD;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         @media (max-width: 768px) {
             .container { padding: 16px; }
-            .header { flex-direction: column; text-align: center; }
+            .nav { flex-direction: column; text-align: center; }
             .rooms-grid { grid-template-columns: 1fr; }
             .players-grid { grid-template-columns: repeat(2, 1fr); }
+            .cabinet-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <!-- Navigation -->
+        <div class="nav">
             <div class="logo">
                 <h1>🎰 Lucky Number</h1>
                 <p>Счастливый Номер | Моментальная лотерея</p>
             </div>
-            <div class="user-info">
-                <div class="balance-card">
-                    <div class="label">💰 Ваш баланс</div>
-                    <div class="value" id="balance">10000</div>
-                    <div class="label">RUB</div>
-                </div>
-                <button class="btn btn-secondary" onclick="game.showDepositModal()">💳 Пополнить</button>
+            <div class="nav-links">
+                <button class="active" onclick="switchTab('game')">🎮 Игра</button>
+                <button onclick="switchTab('cabinet')">👤 Личный кабинет</button>
+                <button onclick="switchTab('history')">📜 История</button>
+            </div>
+            <div class="balance-badge">
+                <div class="label">💰 Баланс</div>
+                <div class="value" id="headerBalance">10000</div>
+                <div class="label">RUB</div>
             </div>
         </div>
 
-        <div class="section-title">🎲 Выберите комнату</div>
-        <div class="rooms-grid" id="roomsGrid"></div>
+        <!-- Game Tab -->
+        <div id="gameTab" class="tab-content active">
+            <div class="section-title">🎲 Выберите комнату</div>
+            <div class="rooms-grid" id="roomsGrid"></div>
+        </div>
 
-        <div class="section-title">📜 История игр</div>
-        <div class="history-list" id="historyList"></div>
+        <!-- Cabinet Tab -->
+        <div id="cabinetTab" class="tab-content">
+            <div class="cabinet-grid">
+                <div class="cabinet-card">
+                    <div class="balance-large">
+                        <div>💰 Ваш баланс</div>
+                        <div class="amount" id="cabinetBalance">0</div>
+                        <div>RUB</div>
+                        <div class="payment-buttons">
+                            <button class="payment-btn deposit-btn" onclick="game.showDepositModal()">💳 Пополнить</button>
+                            <button class="payment-btn withdraw-btn" onclick="game.showWithdrawModal()">💸 Вывести</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cabinet-card">
+                    <h3>📊 Статистика</h3>
+                    <div class="stat-item">
+                        <span>🎮 Сыграно игр:</span>
+                        <span class="stat-value" id="statGames">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>🏆 Выиграно:</span>
+                        <span class="stat-value" id="statWon">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>💸 Проиграно:</span>
+                        <span class="stat-value" id="statLost">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>📈 Процент побед:</span>
+                        <span class="stat-value" id="statWinRate">0%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="section-title">📋 Последние транзакции</div>
+            <div class="transaction-list" id="transactionList"></div>
+        </div>
+
+        <!-- History Tab -->
+        <div id="historyTab" class="tab-content">
+            <div class="section-title">📜 История игр</div>
+            <div class="history-list" id="historyList"></div>
+        </div>
         
         <div class="fair-play-badge">
             <span>🛡️ Provably Fair • Сертифицированный ГСЧ • Честный розыгрыш</span>
         </div>
     </div>
 
+    <!-- Game Modal -->
     <div class="modal" id="gameModal">
         <div class="modal-content">
             <span class="close-modal" onclick="game.closeModal()">&times;</span>
@@ -389,75 +516,134 @@
     <script>
         class LuckyNumberGame {
             constructor() {
-                this.balance = 10000;
+                this.currentUser = {
+                    id: Date.now(),
+                    name: 'Игрок_' + Math.floor(Math.random() * 1000),
+                    balance: 10000,
+                    totalGames: 0,
+                    totalWon: 0,
+                    totalLost: 0,
+                    transactions: [],
+                    gameHistory: []
+                };
+                
                 this.currentRoom = null;
                 this.myPlayerId = null;
                 this.myNumber = null;
-                this.totalGamesPlayed = 0;
-                this.totalPaidOut = 0;
-                this.totalCommission = 0;
                 
-                // КОМНАТЫ С ПРАВИЛЬНОЙ МАТЕМАТИКОЙ
+                // КОМНАТЫ
                 this.rooms = [
-                    // Номинал 1000 RUB
-                    { nominal: 1000, maxPlayers: 3, players: [], gameActive: false, 
+                    { id: '1000_3', nominal: 1000, maxPlayers: 3, players: [], gameActive: false, 
                       prizeDistribution: { winners: 1, winnerPrize: 2000, platformFee: 1000, description: "1 победитель → 2000 RUB" } },
-                    { nominal: 1000, maxPlayers: 5, players: [], gameActive: false, 
+                    { id: '1000_5', nominal: 1000, maxPlayers: 5, players: [], gameActive: false, 
                       prizeDistribution: { winners: 2, winnerPrize: 2000, platformFee: 1000, description: "2 победителя → по 2000 RUB" } },
-                    { nominal: 1000, maxPlayers: 7, players: [], gameActive: false, 
+                    { id: '1000_7', nominal: 1000, maxPlayers: 7, players: [], gameActive: false, 
                       prizeDistribution: { winners: 3, winnerPrize: 1000, platformFee: 1000, description: "3 победителя → по 1000 RUB" } },
-                    { nominal: 1000, maxPlayers: 10, players: [], gameActive: false, 
-                      prizeDistribution: { winners: 3, winnerPrize: 2000, refundWinner: true, refundPrize: 1000, platformFee: 3000, description: "3 победителя → по 2000 RUB + 1 возврат 1000 RUB" } },
-                    
-                    // Номинал 2000 RUB
-                    { nominal: 2000, maxPlayers: 3, players: [], gameActive: false, 
+                    { id: '1000_10', nominal: 1000, maxPlayers: 10, players: [], gameActive: false, 
+                      prizeDistribution: { winners: 3, winnerPrize: 2000, refundWinner: true, refundPrize: 1000, platformFee: 3000, description: "3×2000 + возврат 1000" } },
+                    { id: '2000_3', nominal: 2000, maxPlayers: 3, players: [], gameActive: false, 
                       prizeDistribution: { winners: 1, winnerPrize: 4000, platformFee: 2000, description: "1 победитель → 4000 RUB" } },
-                    { nominal: 2000, maxPlayers: 5, players: [], gameActive: false, 
+                    { id: '2000_5', nominal: 2000, maxPlayers: 5, players: [], gameActive: false, 
                       prizeDistribution: { winners: 2, winnerPrize: 4000, platformFee: 2000, description: "2 победителя → по 4000 RUB" } },
-                    { nominal: 2000, maxPlayers: 7, players: [], gameActive: false, 
+                    { id: '2000_7', nominal: 2000, maxPlayers: 7, players: [], gameActive: false, 
                       prizeDistribution: { winners: 3, winnerPrize: 2000, platformFee: 2000, description: "3 победителя → по 2000 RUB" } },
-                    { nominal: 2000, maxPlayers: 10, players: [], gameActive: false, 
-                      prizeDistribution: { winners: 3, winnerPrize: 4000, refundWinner: true, refundPrize: 2000, platformFee: 6000, description: "3 победителя → по 4000 RUB + 1 возврат 2000 RUB" } },
-                    
-                    // Номинал 5000 RUB
-                    { nominal: 5000, maxPlayers: 3, players: [], gameActive: false, 
+                    { id: '2000_10', nominal: 2000, maxPlayers: 10, players: [], gameActive: false, 
+                      prizeDistribution: { winners: 3, winnerPrize: 4000, refundWinner: true, refundPrize: 2000, platformFee: 6000, description: "3×4000 + возврат 2000" } },
+                    { id: '5000_3', nominal: 5000, maxPlayers: 3, players: [], gameActive: false, 
                       prizeDistribution: { winners: 1, winnerPrize: 10000, platformFee: 5000, description: "1 победитель → 10000 RUB" } },
-                    { nominal: 5000, maxPlayers: 5, players: [], gameActive: false, 
+                    { id: '5000_5', nominal: 5000, maxPlayers: 5, players: [], gameActive: false, 
                       prizeDistribution: { winners: 2, winnerPrize: 10000, platformFee: 5000, description: "2 победителя → по 10000 RUB" } },
-                    { nominal: 5000, maxPlayers: 7, players: [], gameActive: false, 
+                    { id: '5000_7', nominal: 5000, maxPlayers: 7, players: [], gameActive: false, 
                       prizeDistribution: { winners: 3, winnerPrize: 5000, platformFee: 5000, description: "3 победителя → по 5000 RUB" } },
-                    { nominal: 5000, maxPlayers: 10, players: [], gameActive: false, 
-                      prizeDistribution: { winners: 3, winnerPrize: 10000, refundWinner: true, refundPrize: 5000, platformFee: 15000, description: "3 победителя → по 10000 RUB + 1 возврат 5000 RUB" } }
+                    { id: '5000_10', nominal: 5000, maxPlayers: 10, players: [], gameActive: false, 
+                      prizeDistribution: { winners: 3, winnerPrize: 10000, refundWinner: true, refundPrize: 5000, platformFee: 15000, description: "3×10000 + возврат 5000" } }
                 ];
                 
-                this.history = [];
                 this.updateInterval = null;
-                
                 this.loadData();
                 this.init();
             }
 
             init() {
                 this.renderRooms();
+                this.renderCabinet();
                 this.renderHistory();
-                this.updateBalance();
+                this.updateHeaderBalance();
+                setInterval(() => this.checkFullRooms(), 2000);
+            }
+
+            checkFullRooms() {
+                this.rooms.forEach((room, index) => {
+                    if (room.players.length === room.maxPlayers && !room.gameActive) {
+                        this.startGame(index);
+                    }
+                });
             }
 
             loadData() {
-                const savedBalance = localStorage.getItem('lucky_balance');
-                if (savedBalance) this.balance = parseInt(savedBalance);
+                const savedUser = localStorage.getItem('lucky_user');
+                if (savedUser) {
+                    this.currentUser = JSON.parse(savedUser);
+                }
                 
-                const savedHistory = localStorage.getItem('lucky_history');
-                if (savedHistory) this.history = JSON.parse(savedHistory);
+                const savedRooms = localStorage.getItem('lucky_rooms');
+                if (savedRooms) {
+                    const parsed = JSON.parse(savedRooms);
+                    if (parsed && parsed.length) this.rooms = parsed;
+                }
             }
 
             saveData() {
-                localStorage.setItem('lucky_balance', this.balance);
-                localStorage.setItem('lucky_history', JSON.stringify(this.history));
+                localStorage.setItem('lucky_user', JSON.stringify(this.currentUser));
+                localStorage.setItem('lucky_rooms', JSON.stringify(this.rooms));
             }
 
-            updateBalance() {
-                document.getElementById('balance').textContent = this.balance;
+            updateHeaderBalance() {
+                document.getElementById('headerBalance').textContent = this.currentUser.balance;
+                document.getElementById('cabinetBalance').textContent = this.currentUser.balance;
+            }
+
+            updateStats() {
+                document.getElementById('statGames').textContent = this.currentUser.totalGames;
+                document.getElementById('statWon').textContent = this.currentUser.totalWon;
+                document.getElementById('statLost').textContent = this.currentUser.totalLost;
+                const winRate = this.currentUser.totalGames > 0 
+                    ? Math.round((this.currentUser.totalWon / (this.currentUser.totalWon + this.currentUser.totalLost)) * 100)
+                    : 0;
+                document.getElementById('statWinRate').textContent = winRate + '%';
+            }
+
+            addTransaction(type, amount, description) {
+                this.currentUser.transactions.unshift({
+                    id: Date.now(),
+                    date: new Date().toLocaleString(),
+                    type: type,
+                    amount: amount,
+                    description: description
+                });
+                if (this.currentUser.transactions.length > 50) this.currentUser.transactions.pop();
+                this.renderTransactions();
+                this.saveData();
+            }
+
+            renderTransactions() {
+                const container = document.getElementById('transactionList');
+                if (!container) return;
+                
+                if (this.currentUser.transactions.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: #A0A3BD; padding: 20px;">Нет транзакций</div>';
+                    return;
+                }
+                
+                container.innerHTML = this.currentUser.transactions.slice(0, 20).map(t => `
+                    <div class="transaction-item">
+                        <span>${t.date}</span>
+                        <span>${t.description}</span>
+                        <span class="${t.amount > 0 ? 'transaction-positive' : 'transaction-negative'}">
+                            ${t.amount > 0 ? '+' : ''}${t.amount.toLocaleString()} RUB
+                        </span>
+                    </div>
+                `).join('');
             }
 
             showNotification(message, isError = false) {
@@ -494,7 +680,7 @@
                         </div>
                         <div>👥 ${room.players.length}/${room.maxPlayers} игроков</div>
                         <button class="join-btn" onclick="game.joinRoom(${index})" 
-                            ${room.players.length >= room.maxPlayers || room.gameActive || this.balance < room.nominal ? 'disabled' : ''}>
+                            ${room.players.length >= room.maxPlayers || room.gameActive || this.currentUser.balance < room.nominal ? 'disabled' : ''}>
                             ${room.players.length >= room.maxPlayers ? '🔴 Полная' : 
                               room.gameActive ? '🎲 Игра идет' : 
                               `Войти (${room.nominal.toLocaleString()} RUB)`}
@@ -514,13 +700,16 @@
                     this.showNotification('Игра уже началась!', true);
                     return;
                 }
-                if (this.balance < room.nominal) {
+                if (this.currentUser.balance < room.nominal) {
                     this.showNotification(`Недостаточно средств! Нужно ${room.nominal.toLocaleString()} RUB`, true);
                     return;
                 }
                 
-                this.balance -= room.nominal;
-                this.updateBalance();
+                this.currentUser.balance -= room.nominal;
+                this.currentUser.totalLost += room.nominal;
+                this.addTransaction('bet', -room.nominal, `Вход в комнату ${room.nominal} RUB (${room.maxPlayers} игроков)`);
+                this.updateHeaderBalance();
+                this.updateStats();
                 
                 const takenNumbers = room.players.map(p => p.number);
                 let availableNumbers = [];
@@ -535,17 +724,18 @@
                 room.players.push({
                     id: this.myPlayerId,
                     number: randomNumber,
+                    name: this.currentUser.name,
                     joinedAt: new Date().toISOString()
                 });
                 
-                this.showNotification(`✅ Вы вошли под номером ${randomNumber}!`);
+                this.showNotification(`✅ Вы вошли под номером ${randomNumber}! (${room.players.length}/${room.maxPlayers})`);
                 this.renderRooms();
                 this.saveData();
                 
+                this.openGameModal(roomIndex);
+                
                 if (room.players.length === room.maxPlayers) {
                     this.startGame(roomIndex);
-                } else {
-                    this.openGameModal(roomIndex);
                 }
             }
             
@@ -566,7 +756,7 @@
                             ${room.players.map(p => `<span style="background: rgba(245,176,66,0.2); padding: 5px 12px; border-radius: 20px;">Номер ${p.number}</span>`).join('')}
                         </div>
                         <p style="margin-top: 15px;">🏆 ${this.getPrizeDescription(room)}</p>
-                        <p>💰 Комиссия: ${room.prizeDistribution.platformFee.toLocaleString()} RUB</p>
+                        <p style="margin-top: 10px; color: #2DD4BF;">✨ Игра начнется автоматически, когда наберется ${room.maxPlayers} игроков!</p>
                     </div>
                 `;
                 modal.classList.add('active');
@@ -590,6 +780,8 @@
                 room.gameActive = true;
                 this.currentRoom = { ...room, index: roomIndex };
                 
+                this.showNotification(`🎮 Комната заполнена! Игра начинается!`, false);
+                
                 const modal = document.getElementById('gameModal');
                 if (modal) {
                     document.getElementById('gameStatus').innerHTML = '<h3>🎰 Игра начинается! Крутим рулетку...</h3>';
@@ -607,7 +799,7 @@
                 grid.innerHTML = this.currentRoom.players.map(player => `
                     <div class="player-card">
                         <div class="player-number">🎲 ${player.number}</div>
-                        <div>${player.id === this.myPlayerId ? '⭐ Вы' : 'Игрок'}</div>
+                        <div>${player.id === this.myPlayerId ? '⭐ Вы' : player.name || 'Игрок'}</div>
                         <div style="color: #2DD4BF;">${player.prize ? `+${player.prize.toLocaleString()} RUB` : ''}</div>
                     </div>
                 `).join('');
@@ -620,14 +812,12 @@
                 const platformFee = room.prizeDistribution.platformFee;
                 const dist = room.prizeDistribution;
                 
-                // Перемешиваем игроков
                 const players = [...room.players];
                 for (let i = players.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [players[i], players[j]] = [players[j], players[i]];
                 }
                 
-                // Определяем победителей
                 const winners = [];
                 for (let i = 0; i < dist.winners && i < players.length; i++) {
                     winners.push({
@@ -636,7 +826,6 @@
                     });
                 }
                 
-                // Для комнаты 10 человек добавляем возврат ставки
                 if (dist.refundWinner && players.length >= dist.winners + 1) {
                     winners.push({
                         player: players[dist.winners],
@@ -661,20 +850,25 @@
                         wheel.classList.remove('spinning');
                         if (wheelCenter) wheelCenter.textContent = winners[0]?.player.number || '?';
                         
-                        // Начисляем выигрыши
                         room.players = room.players.map(p => {
                             const win = winners.find(w => w.player.id === p.id);
                             if (win) {
                                 p.won = true;
                                 p.prize = win.prize;
                                 if (p.id === this.myPlayerId) {
-                                    this.balance += win.prize;
-                                    this.updateBalance();
+                                    this.currentUser.balance += win.prize;
+                                    this.currentUser.totalWon += win.prize;
+                                    this.currentUser.totalGames++;
+                                    this.addTransaction('win', win.prize, `Выигрыш в комнате ${room.nominal} RUB, номер ${p.number}`);
                                 }
+                            } else if (p.id === this.myPlayerId) {
+                                this.currentUser.totalGames++;
                             }
                             return p;
                         });
                         
+                        this.updateHeaderBalance();
+                        this.updateStats();
                         this.renderPlayersInModal();
                         
                         const resultDiv = document.getElementById('gameResult');
@@ -706,14 +900,14 @@
                             myWin: myWin ? myWin.prize : 0
                         };
                         
-                        this.history.unshift(gameRecord);
-                        if (this.history.length > 30) this.history.pop();
+                        this.currentUser.gameHistory.unshift(gameRecord);
+                        if (this.currentUser.gameHistory.length > 30) this.currentUser.gameHistory.pop();
                         
                         this.saveData();
                         this.renderHistory();
                         
-                        // Очищаем комнату
                         this.rooms[room.index] = {
+                            id: room.id,
                             nominal: room.nominal,
                             maxPlayers: room.maxPlayers,
                             players: [],
@@ -728,16 +922,23 @@
                 }
             }
             
+            renderCabinet() {
+                this.updateHeaderBalance();
+                this.updateStats();
+                this.renderTransactions();
+            }
+            
             renderHistory() {
                 const historyDiv = document.getElementById('historyList');
                 if (!historyDiv) return;
                 
-                if (this.history.length === 0) {
+                const history = this.currentUser.gameHistory;
+                if (history.length === 0) {
                     historyDiv.innerHTML = '<div style="text-align: center; color: #A0A3BD; padding: 20px;">История игр пуста</div>';
                     return;
                 }
                 
-                historyDiv.innerHTML = this.history.slice(0, 15).map(game => `
+                historyDiv.innerHTML = history.slice(0, 15).map(game => `
                     <div class="history-item">
                         <strong>📅 ${game.date}</strong><br>
                         🎲 Комната ${game.nominal.toLocaleString()} RUB | 👥 ${game.maxPlayers} игроков<br>
@@ -751,11 +952,32 @@
             showDepositModal() {
                 const amount = prompt('Введите сумму пополнения (RUB):', '1000');
                 if (amount && !isNaN(amount) && parseInt(amount) > 0) {
-                    this.balance += parseInt(amount);
-                    this.updateBalance();
+                    const depositAmount = parseInt(amount);
+                    this.currentUser.balance += depositAmount;
+                    this.addTransaction('deposit', depositAmount, `Пополнение баланса`);
+                    this.updateHeaderBalance();
+                    this.updateStats();
                     this.saveData();
-                    this.showNotification(`Баланс пополнен на ${parseInt(amount).toLocaleString()} RUB!`);
+                    this.showNotification(`Баланс пополнен на ${depositAmount.toLocaleString()} RUB!`);
                     this.renderRooms();
+                }
+            }
+            
+            showWithdrawModal() {
+                const amount = prompt('Введите сумму вывода (RUB):', '1000');
+                if (amount && !isNaN(amount) && parseInt(amount) > 0) {
+                    const withdrawAmount = parseInt(amount);
+                    if (this.currentUser.balance >= withdrawAmount) {
+                        this.currentUser.balance -= withdrawAmount;
+                        this.addTransaction('withdraw', -withdrawAmount, `Вывод средств`);
+                        this.updateHeaderBalance();
+                        this.updateStats();
+                        this.saveData();
+                        this.showNotification(`Вывод ${withdrawAmount.toLocaleString()} RUB обработан!`);
+                        this.renderRooms();
+                    } else {
+                        this.showNotification('Недостаточно средств!', true);
+                    }
                 }
             }
             
@@ -768,6 +990,16 @@
                     if (this.updateInterval) clearInterval(this.updateInterval);
                 }
             }
+        }
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tab + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+            
+            if (tab === 'cabinet') game.renderCabinet();
+            if (tab === 'history') game.renderHistory();
         }
         
         const game = new LuckyNumberGame();
