@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Lucky Number - Анонимная игровая платформа</title>
+    <title>Lucky Number - Счастливый Номер</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     
@@ -28,84 +28,8 @@
             padding: 20px;
         }
 
-        /* Profile Card */
-        .profile-card {
-            background: rgba(30, 26, 58, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(245, 176, 66, 0.3);
-            text-align: center;
-        }
-
-        .anonymous-id {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 12px 20px;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            font-family: monospace;
-            font-size: 1.1em;
-            margin: 15px 0;
-            border: 1px solid rgba(245, 176, 66, 0.5);
-        }
-
-        .anonymous-id button {
-            background: none;
-            border: none;
-            color: #F5B042;
-            cursor: pointer;
-            font-size: 1.2em;
-            padding: 0 5px;
-        }
-
-        .balance {
-            font-size: 3em;
-            font-weight: 800;
-            color: #F5B042;
-            margin: 15px 0;
-        }
-
-        .warning-box {
-            background: rgba(231, 76, 60, 0.15);
-            border-left: 3px solid #e74c3c;
-            padding: 12px 16px;
-            margin: 15px 0;
-            font-size: 0.75em;
-            text-align: left;
-            border-radius: 8px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
-        .btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.9em;
-        }
-
-        .btn-deposit { background: linear-gradient(135deg, #2DD4BF, #1e9b8a); color: #0A0F2A; }
-        .btn-withdraw { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; }
-        .btn-save { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; }
-        .btn-export { background: rgba(45, 212, 191, 0.2); border: 1px solid #2DD4BF; color: #2DD4BF; }
-        .btn-import { background: rgba(245, 176, 66, 0.2); border: 1px solid #F5B042; color: #F5B042; }
-        .btn-reset { background: rgba(231, 76, 60, 0.2); border: 1px solid #e74c3c; color: #e74c3c; }
-        .btn:hover { transform: translateY(-2px); }
-
-        /* Navigation */
-        .nav {
+        /* Header */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -114,8 +38,9 @@
             margin-bottom: 30px;
             padding: 16px 24px;
             background: rgba(30, 26, 58, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .logo h1 {
@@ -127,48 +52,47 @@
             background-clip: text;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 10px;
+        .logo p {
+            font-size: 0.7em;
+            color: #A0A3BD;
+            margin-top: 4px;
         }
 
-        .nav-links button {
-            background: transparent;
-            border: none;
-            color: white;
-            padding: 8px 20px;
-            cursor: pointer;
-            font-size: 0.9em;
-            border-radius: 40px;
-            transition: all 0.2s;
-        }
-
-        .nav-links button.active {
-            background: linear-gradient(135deg, #F5B042, #FFC75F);
-            color: #0A0F2A;
-        }
-
-        .balance-badge {
+        .balance-card {
             background: linear-gradient(135deg, #2DD4BF, #1e9b8a);
             padding: 8px 20px;
             border-radius: 40px;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease;
+        .balance-card:hover {
+            transform: scale(1.02);
         }
 
-        .tab-content.active {
-            display: block;
+        .balance-card .value {
+            font-size: 1.3em;
+            font-weight: 800;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .cabinet-btn {
+            background: rgba(245, 176, 66, 0.2);
+            border: 1px solid #F5B042;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: #F5B042;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
+        .cabinet-btn:hover {
+            background: rgba(245, 176, 66, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Section Title */
         .section-title {
             font-size: 1.3em;
             font-weight: 700;
@@ -177,6 +101,7 @@
             border-left: 4px solid #F5B042;
         }
 
+        /* Rooms Grid */
         .rooms-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -189,7 +114,7 @@
             border-radius: 20px;
             padding: 20px;
             transition: all 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .room-card:hover {
@@ -210,6 +135,11 @@
             color: #F5B042;
         }
 
+        .room-bet small {
+            font-size: 0.4em;
+            color: #A0A3BD;
+        }
+
         .room-players-count {
             background: rgba(45, 212, 191, 0.2);
             padding: 4px 12px;
@@ -219,11 +149,16 @@
         }
 
         .prize-info {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             padding: 10px;
             border-radius: 12px;
             margin: 12px 0;
             font-size: 0.8em;
+        }
+
+        .prize-info span {
+            color: #F5B042;
+            font-weight: bold;
         }
 
         .player-avatars {
@@ -259,11 +194,35 @@
             transition: all 0.2s;
         }
 
+        .join-btn:hover:not(:disabled) {
+            background: #FFC75F;
+            transform: translateY(-2px);
+        }
+
         .join-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
+        /* History */
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(30, 26, 58, 0.5);
+            border-radius: 20px;
+            padding: 8px;
+        }
+
+        .history-item {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 12px;
+            font-size: 0.8em;
+            border-left: 3px solid #F5B042;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -285,12 +244,54 @@
         .modal-content {
             background: linear-gradient(135deg, #1E1A3A, #0A0F2A);
             border-radius: 24px;
-            padding: 24px;
-            max-width: 800px;
+            padding: 32px;
+            max-width: 500px;
             width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
             border: 1px solid rgba(245, 176, 66, 0.3);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #F5B042;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 40px;
+            color: white;
+            font-size: 1em;
+            margin: 10px 0;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #F5B042;
+            color: #0A0F2A;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
         }
 
         .close-modal {
@@ -298,6 +299,45 @@
             font-size: 28px;
             cursor: pointer;
             color: #F5B042;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.15);
+            border-left: 3px solid #e74c3c;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 0.7em;
+            text-align: left;
+            border-radius: 8px;
+        }
+
+        /* Game Modal */
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 42, 0.95);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-modal.active {
+            display: flex;
+        }
+
+        .game-modal-content {
+            background: linear-gradient(135deg, #1E1A3A, #0A0F2A);
+            border-radius: 24px;
+            padding: 24px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(245, 176, 66, 0.3);
         }
 
         .players-grid {
@@ -310,7 +350,7 @@
         .player-card {
             text-align: center;
             padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.1);
             border-radius: 12px;
         }
 
@@ -323,6 +363,11 @@
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
+        }
+
+        .player-number {
+            font-size: 1.5em;
+            font-weight: 800;
         }
 
         .wheel {
@@ -382,514 +427,611 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        .history-list {
-            max-height: 300px;
-            overflow-y: auto;
-            background: rgba(30, 26, 58, 0.5);
-            border-radius: 20px;
-            padding: 8px;
-        }
-
-        .history-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 12px;
-            font-size: 0.8em;
-            border-left: 3px solid #F5B042;
-        }
-
         .footer-note {
             text-align: center;
             margin-top: 40px;
             padding: 20px;
             font-size: 0.7em;
             color: #666;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         @media (max-width: 768px) {
             .rooms-grid { grid-template-columns: 1fr; }
             .players-grid { grid-template-columns: repeat(2, 1fr); }
-            .btn-group { flex-direction: column; align-items: stretch; }
+            .modal-buttons { flex-direction: column; }
+            .header { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- АНОНИМНЫЙ ПРОФИЛЬ -->
-        <div class="profile-card">
-            <h2>🎲 Ваш анонимный кабинет</h2>
-            <p style="color: #A0A3BD; margin-bottom: 10px;">
-                🔐 Никаких телефонов, email и паспортов. Только вы и ваша удача.
-            </p>
-
-            <div class="anonymous-id">
-                🆔 Ваш ID: <strong id="userIdDisplay">LUCKY_</strong>
-                <button onclick="game.copyUserId()" title="Скопировать ID">📋</button>
-                <button onclick="game.saveIdToFile()" title="Сохранить ID в файл">💾</button>
-            </div>
-
-            <div class="balance" id="balance">10000</div>
-            <div>RUB</div>
-
-            <div class="btn-group">
-                <button class="btn btn-deposit" onclick="game.deposit()">💳 Пополнить</button>
-                <button class="btn btn-withdraw" onclick="game.withdraw()">💸 Вывести</button>
-                <button class="btn btn-save" onclick="game.saveIdToFile()">💾 Сохранить ID</button>
-                <button class="btn btn-export" onclick="game.exportData()">📤 Экспорт данных</button>
-                <button class="btn btn-import" onclick="game.importData()">📥 Импорт данных</button>
-                <button class="btn btn-reset" onclick="game.resetAccount()">🔄 Сброс аккаунта</button>
-            </div>
-
-            <div class="warning-box">
-                ⚠️ ВНИМАНИЕ: Ваш ID и данные хранятся только в вашем браузере.<br>
-                • Сохраните ID с помощью кнопки "Сохранить ID"<br>
-                • Сделайте резервную копию через "Экспорт данных"<br>
-                • Без резервной копии данные восстановить невозможно!
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="nav">
+        <!-- Header -->
+        <div class="header">
             <div class="logo">
                 <h1>🎰 Lucky Number</h1>
                 <p>Счастливый Номер | Моментальная лотерея</p>
             </div>
-            <div class="nav-links">
-                <button class="active" onclick="switchTab('game')">🎮 Игра</button>
-                <button onclick="switchTab('history')">📜 История</button>
-            </div>
-            <div class="balance-badge">
-                <div class="label">💰 Баланс</div>
-                <div class="value" id="headerBalance">10000</div>
-                <div class="label">RUB</div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="balance-card" onclick="openCabinet()">
+                    <div class="label">💰 Баланс</div>
+                    <div class="value" id="headerBalance">0</div>
+                    <div class="label">RUB</div>
+                </div>
+                <button class="cabinet-btn" onclick="openCabinet()">👤 Личный кабинет</button>
             </div>
         </div>
 
-        <!-- Game Tab -->
-        <div id="gameTab" class="tab-content active">
-            <div class="section-title">🎲 Выберите комнату</div>
-            <div class="rooms-grid" id="roomsGrid"></div>
-        </div>
+        <!-- Rooms -->
+        <div class="section-title">🎲 Выберите комнату</div>
+        <div class="rooms-grid" id="roomsGrid"></div>
 
-        <!-- History Tab -->
-        <div id="historyTab" class="tab-content">
-            <div class="section-title">📜 История игр</div>
-            <div class="history-list" id="historyList"></div>
-        </div>
+        <!-- History -->
+        <div class="section-title">📜 История игр</div>
+        <div class="history-list" id="historyList"></div>
 
         <div class="footer-note">
             🔒 Полная анонимность • Данные хранятся локально • Никакой регистрации<br>
-            💡 Для восстановления аккаунта используйте экспортированный файл или сохраненный ID
+            💡 Для входа используйте ваш ID или создайте новый
         </div>
     </div>
 
-    <!-- Game Modal -->
-    <div class="modal" id="gameModal">
+    <!-- Модальное окно входа в личный кабинет -->
+    <div id="cabinetModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="game.closeModal()">&times;</span>
+            <span class="close-modal" onclick="closeCabinet()">&times;</span>
+            <h2>🔐 Вход в личный кабинет</h2>
+            <p style="margin-bottom: 15px; color: #A0A3BD;">Введите ваш ID для входа или создайте новый аккаунт</p>
+            <input type="text" id="userIdInput" class="modal-input" placeholder="LUCKY_XXXXXXXXXXXX" autocomplete="off">
+            <div class="modal-buttons">
+                <button class="modal-btn btn-primary" onclick="login()">🔓 Войти</button>
+                <button class="modal-btn btn-secondary" onclick="createNewAccount()">✨ Создать новый ID</button>
+            </div>
+            <div class="warning-box">
+                💡 Нет ID? Нажмите "Создать новый ID" — система сгенерирует уникальный идентификатор.<br>
+                📌 Сохраните ID в надежном месте для восстановления доступа.
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно управления аккаунтом -->
+    <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAccountModal()">&times;</span>
+            <h2>👤 Личный кабинет</h2>
+            <div style="text-align: center; margin: 20px 0;">
+                <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 50px; display: inline-block;">
+                    🆔 <strong id="accountUserId">LUCKY_</strong>
+                    <button onclick="copyUserId()" style="background: none; border: none; color: #F5B042; cursor: pointer;">📋</button>
+                </div>
+                <div style="margin: 20px 0;">
+                    <div style="font-size: 2.5em; font-weight: 800; color: #F5B042;" id="accountBalance">0</div>
+                    <div>RUB</div>
+                </div>
+                <div class="modal-buttons" style="flex-direction: column;">
+                    <button class="modal-btn btn-primary" onclick="deposit()">💳 Пополнить баланс</button>
+                    <button class="modal-btn btn-primary" onclick="withdraw()">💸 Вывести средства</button>
+                    <button class="modal-btn btn-secondary" onclick="exportData()">📤 Экспорт данных (бэкап)</button>
+                    <button class="modal-btn btn-secondary" onclick="importData()">📥 Импорт данных</button>
+                    <button class="modal-btn btn-secondary" onclick="saveIdToFile()">💾 Сохранить ID в файл</button>
+                    <button class="modal-btn btn-secondary" onclick="logout()" style="background: rgba(231,76,60,0.2); border-color: #e74c3c; color: #e74c3c;">🚪 Выйти из аккаунта</button>
+                </div>
+            </div>
+            <div class="warning-box">
+                ⚠️ Ваши данные хранятся локально. Сделайте резервную копию через "Экспорт данных"!
+            </div>
+        </div>
+    </div>
+
+    <!-- Игровое модальное окно (рулетка) -->
+    <div id="gameModal" class="game-modal">
+        <div class="game-modal-content">
+            <span class="close-modal" onclick="closeGameModal()">&times;</span>
             <h2 id="modalRoomTitle">Комната</h2>
             <div style="text-align: center;">
                 <div class="wheel" id="wheel">
                     <div class="wheel-center" id="wheelCenter">🎲</div>
                 </div>
             </div>
-            <div class="players-list">
-                <h3>Игроки в комнате (<span id="playerCount">0</span>/<span id="maxPlayers">0</span>)</h3>
-                <div class="players-grid" id="playersGrid"></div>
-            </div>
+            <h3>Игроки в комнате (<span id="playerCount">0</span>/<span id="maxPlayers">0</span>)</h3>
+            <div class="players-grid" id="playersGrid"></div>
             <div id="gameStatus" style="text-align: center; padding: 15px;"></div>
             <div id="gameResult"></div>
         </div>
     </div>
 
     <script>
-        class AnonymousGame {
-            constructor() {
-                this.userId = this.getOrCreateUserId();
-                this.balance = this.loadBalance();
-                this.history = this.loadHistory();
-                this.currentRoom = null;
-                this.myPlayerId = null;
-                this.updateInterval = null;
+        // ========== КОНФИГУРАЦИЯ КОМНАТ ==========
+        const rooms = [
+            // 1000 RUB
+            { id: '1000_3', nominal: 1000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 2000 RUB", winners: 1, prize: 2000, fee: 1000 },
+            { id: '1000_5', nominal: 1000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 2000 RUB", winners: 2, prize: 2000, fee: 1000 },
+            { id: '1000_7', nominal: 1000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 2000 RUB", winners: 3, prize: 2000, fee: 1000 },
+            { id: '1000_10', nominal: 1000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×2000 + возврат 1000", winners: 3, prize: 2000, refund: 1000, fee: 3000 },
+            // 2000 RUB
+            { id: '2000_3', nominal: 2000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 4000 RUB", winners: 1, prize: 4000, fee: 2000 },
+            { id: '2000_5', nominal: 2000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 4000 RUB", winners: 2, prize: 4000, fee: 2000 },
+            { id: '2000_7', nominal: 2000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 4000 RUB", winners: 3, prize: 4000, fee: 2000 },
+            { id: '2000_10', nominal: 2000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×4000 + возврат 2000", winners: 3, prize: 4000, refund: 2000, fee: 6000 },
+            // 5000 RUB
+            { id: '5000_3', nominal: 5000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 10000 RUB", winners: 1, prize: 10000, fee: 5000 },
+            { id: '5000_5', nominal: 5000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 10000 RUB", winners: 2, prize: 10000, fee: 5000 },
+            { id: '5000_7', nominal: 5000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 10000 RUB", winners: 3, prize: 10000, fee: 5000 },
+            { id: '5000_10', nominal: 5000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×10000 + возврат 5000", winners: 3, prize: 10000, refund: 5000, fee: 15000 }
+        ];
 
-                // КОМНАТЫ: 3, 5, 7, 10 игроков для номиналов 1000, 2000, 5000 RUB
-                this.rooms = [
-                    // 1000 RUB
-                    { id: '1000_3', nominal: 1000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 2000 RUB", winners: 1, prize: 2000, fee: 1000 },
-                    { id: '1000_5', nominal: 1000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 2000 RUB", winners: 2, prize: 2000, fee: 1000 },
-                    { id: '1000_7', nominal: 1000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 1000 RUB", winners: 3, prize: 1000, fee: 1000 },
-                    { id: '1000_10', nominal: 1000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×2000 + возврат 1000", winners: 3, prize: 2000, refund: 1000, fee: 3000 },
-                    // 2000 RUB
-                    { id: '2000_3', nominal: 2000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 4000 RUB", winners: 1, prize: 4000, fee: 2000 },
-                    { id: '2000_5', nominal: 2000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 4000 RUB", winners: 2, prize: 4000, fee: 2000 },
-                    { id: '2000_7', nominal: 2000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 2000 RUB", winners: 3, prize: 2000, fee: 2000 },
-                    { id: '2000_10', nominal: 2000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×4000 + возврат 2000", winners: 3, prize: 4000, refund: 2000, fee: 6000 },
-                    // 5000 RUB
-                    { id: '5000_3', nominal: 5000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 10000 RUB", winners: 1, prize: 10000, fee: 5000 },
-                    { id: '5000_5', nominal: 5000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 10000 RUB", winners: 2, prize: 10000, fee: 5000 },
-                    { id: '5000_7', nominal: 5000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 5000 RUB", winners: 3, prize: 5000, fee: 5000 },
-                    { id: '5000_10', nominal: 5000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×10000 + возврат 5000", winners: 3, prize: 10000, refund: 5000, fee: 15000 }
-                ];
+        // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+        let currentUserId = null;
+        let userData = null;
+        let currentRoom = null;
+        let myPlayerId = null;
+        let updateInterval = null;
 
-                this.loadRooms();
-                this.render();
-                setInterval(() => this.checkFullRooms(), 2000);
+        // ========== ФУНКЦИИ УПРАВЛЕНИЯ ДАННЫМИ ==========
+        function generateNewId() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < 12; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
             }
+            return result;
+        }
 
-            // ========== УПРАВЛЕНИЕ ID И ДАННЫМИ ==========
-            getOrCreateUserId() {
-                let id = localStorage.getItem('lucky_anonymous_id');
-                if (!id) {
-                    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
-                    let result = '';
-                    for (let i = 0; i < 12; i++) {
-                        result += chars.charAt(Math.floor(Math.random() * chars.length));
+        function loadUserData(userId) {
+            return {
+                balance: parseInt(localStorage.getItem(`lucky_balance_${userId}`)) || 10000,
+                history: JSON.parse(localStorage.getItem(`lucky_history_${userId}`) || '[]'),
+                rooms: JSON.parse(localStorage.getItem(`lucky_rooms_${userId}`) || '[]')
+            };
+        }
+
+        function saveUserData(userId, data) {
+            localStorage.setItem(`lucky_balance_${userId}`, data.balance);
+            localStorage.setItem(`lucky_history_${userId}`, JSON.stringify(data.history));
+            localStorage.setItem(`lucky_rooms_${userId}`, JSON.stringify(data.rooms));
+        }
+
+        function applyUserDataToRooms(savedRooms) {
+            if (savedRooms && savedRooms.length) {
+                savedRooms.forEach(savedRoom => {
+                    const existingRoom = rooms.find(r => r.id === savedRoom.id);
+                    if (existingRoom) {
+                        existingRoom.players = savedRoom.players || [];
+                        existingRoom.gameActive = savedRoom.gameActive || false;
                     }
-                    id = result;
-                    localStorage.setItem('lucky_anonymous_id', id);
+                });
+            }
+        }
+
+        function saveCurrentRooms() {
+            if (userData) {
+                const roomsToSave = rooms.map(room => ({
+                    id: room.id,
+                    nominal: room.nominal,
+                    maxPlayers: room.maxPlayers,
+                    players: room.players,
+                    gameActive: room.gameActive
+                }));
+                userData.rooms = roomsToSave;
+                saveUserData(currentUserId, userData);
+            }
+        }
+
+        function updateUI() {
+            if (userData) {
+                document.getElementById('headerBalance').textContent = userData.balance;
+                document.getElementById('accountBalance').textContent = userData.balance;
+                document.getElementById('accountUserId').textContent = `LUCKY_${currentUserId}`;
+            } else {
+                document.getElementById('headerBalance').textContent = '0';
+            }
+            renderRooms();
+            renderHistory();
+        }
+
+        function showNotification(message, isError = false) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            notification.style.background = isError ? '#e74c3c' : '#2DD4BF';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // ========== ОТОБРАЖЕНИЕ КОМНАТ ==========
+        function renderRooms() {
+            const grid = document.getElementById('roomsGrid');
+            if (!grid) return;
+
+            grid.innerHTML = rooms.map((room, idx) => `
+                <div class="room-card">
+                    <div class="room-header">
+                        <div class="room-bet">${room.nominal.toLocaleString()} <small>RUB</small></div>
+                        <div class="room-players-count">👥 ${room.maxPlayers} игроков</div>
+                    </div>
+                    <div class="prize-info">
+                        🏆 ${room.prizeDesc}<br>
+                        💰 Комиссия: ${room.fee.toLocaleString()} RUB
+                    </div>
+                    <div class="player-avatars">
+                        ${room.players.slice(0, 8).map(p => `<div class="player-dot">${p.number}</div>`).join('')}
+                        ${room.players.length > 8 ? `<div class="player-dot">+${room.players.length - 8}</div>` : ''}
+                    </div>
+                    <div>👥 ${room.players.length}/${room.maxPlayers} игроков</div>
+                    <button class="join-btn" onclick="joinRoom(${idx})" 
+                        ${!userData || room.players.length >= room.maxPlayers || room.gameActive || userData.balance < room.nominal ? 'disabled' : ''}>
+                        ${room.players.length >= room.maxPlayers ? '🔴 Полная' : 
+                          room.gameActive ? '🎲 Игра идет' : 
+                          `Войти (${room.nominal.toLocaleString()} RUB)`}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('historyList');
+            if (!container) return;
+
+            if (!userData || userData.history.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">История игр пуста</div>';
+                return;
+            }
+
+            container.innerHTML = userData.history.slice(0, 20).map(game => `
+                <div class="history-item">
+                    <strong>📅 ${game.date}</strong><br>
+                    🎲 Комната ${game.nominal.toLocaleString()} RUB | 👥 ${game.maxPlayers} игроков<br>
+                    🏆 Победители: ${game.winners.map(w => `#${w.number} (${w.prize.toLocaleString()} RUB)`).join(', ')}<br>
+                    💰 Комиссия: ${game.platformFee.toLocaleString()} RUB<br>
+                    ${game.myWin > 0 ? `🎉 Ваш выигрыш: ${game.myWin.toLocaleString()} RUB!` : '😢 Вы не выиграли'}
+                </div>
+            `).join('');
+        }
+
+        // ========== ИГРОВАЯ ЛОГИКА ==========
+        function joinRoom(roomIdx) {
+            if (!userData) {
+                showNotification('Сначала войдите в личный кабинет!', true);
+                openCabinet();
+                return;
+            }
+
+            const room = rooms[roomIdx];
+            if (room.players.length >= room.maxPlayers || room.gameActive || userData.balance < room.nominal) {
+                showNotification('Нельзя войти в эту комнату', true);
+                return;
+            }
+
+            userData.balance -= room.nominal;
+            saveUserData(currentUserId, userData);
+            updateUI();
+
+            const taken = room.players.map(p => p.number);
+            let available = [];
+            for (let i = 1; i <= room.maxPlayers; i++) {
+                if (!taken.includes(i)) available.push(i);
+            }
+            const number = available[Math.floor(Math.random() * available.length)];
+            myPlayerId = Date.now() + Math.random();
+
+            room.players.push({
+                id: myPlayerId,
+                number: number,
+                joinedAt: new Date().toISOString()
+            });
+
+            saveCurrentRooms();
+            updateUI();
+            showNotification(`✅ Вы вошли под номером ${number}! (${room.players.length}/${room.maxPlayers})`);
+
+            if (room.players.length === room.maxPlayers) {
+                startGame(roomIdx);
+            } else {
+                openGameModal(roomIdx);
+            }
+        }
+
+        function openGameModal(roomIdx) {
+            const room = rooms[roomIdx];
+            currentRoom = { ...room, index: roomIdx };
+
+            const modal = document.getElementById('gameModal');
+            const currentPlayer = room.players.find(p => p.id === myPlayerId);
+            document.getElementById('modalRoomTitle').textContent = `Комната ${room.nominal.toLocaleString()} RUB - Ваш номер ${currentPlayer?.number || '?'}`;
+            document.getElementById('maxPlayers').textContent = room.maxPlayers;
+            document.getElementById('playerCount').textContent = room.players.length;
+            document.getElementById('gameStatus').innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <h3>⏳ Ожидание игроков...</h3>
+                    <p style="font-size: 2em; color: #F5B042;">🎲 ${currentPlayer?.number || '?'}</p>
+                    <p>Игроков в комнате: ${room.players.length}/${room.maxPlayers}</p>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px;">
+                        ${room.players.map(p => `<span style="background: rgba(245,176,66,0.2); padding: 5px 12px; border-radius: 20px;">Номер ${p.number}</span>`).join('')}
+                    </div>
+                    <p style="margin-top: 15px;">🏆 ${room.prizeDesc}</p>
+                </div>
+            `;
+            modal.classList.add('active');
+
+            if (updateInterval) clearInterval(updateInterval);
+            updateInterval = setInterval(() => {
+                const updatedRoom = rooms[roomIdx];
+                if (updatedRoom && document.getElementById('gameModal').classList.contains('active')) {
+                    document.getElementById('playerCount').textContent = updatedRoom.players.length;
+                    if (updatedRoom.players.length === updatedRoom.maxPlayers && !updatedRoom.gameActive) {
+                        clearInterval(updateInterval);
+                        startGame(roomIdx);
+                    }
                 }
-                this.updateUserIdDisplay(id);
-                return id;
+            }, 1000);
+        }
+
+        function startGame(roomIdx) {
+            const room = rooms[roomIdx];
+            if (room.gameActive) return;
+            room.gameActive = true;
+            saveCurrentRooms();
+
+            const modal = document.getElementById('gameModal');
+            if (modal && modal.classList.contains('active')) {
+                document.getElementById('gameStatus').innerHTML = '<h3>🎰 Игра начинается! Крутим рулетку...</h3>';
+            }
+            updateUI();
+
+            setTimeout(() => spinWheel(roomIdx), 2000);
+        }
+
+        function spinWheel(roomIdx) {
+            const room = rooms[roomIdx];
+            const totalPot = room.nominal * room.players.length;
+            const platformFee = room.fee;
+
+            const players = [...room.players];
+            for (let i = players.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [players[i], players[j]] = [players[j], players[i]];
             }
 
-            updateUserIdDisplay(id) {
-                const display = document.getElementById('userIdDisplay');
-                if (display) display.textContent = `LUCKY_${id}`;
+            const winners = [];
+            for (let i = 0; i < room.winners && i < players.length; i++) {
+                winners.push({ player: players[i], prize: room.prize });
+            }
+            if (room.refund && players.length >= room.winners + 1) {
+                winners.push({ player: players[room.winners], prize: room.refund });
             }
 
-            copyUserId() {
-                navigator.clipboard.writeText(`LUCKY_${this.userId}`);
-                this.showNotification('✅ ID скопирован! Сохраните его в надежном месте.');
-            }
+            const wheel = document.getElementById('wheel');
+            const wheelCenter = document.getElementById('wheelCenter');
 
-            saveIdToFile() {
-                const data = { type: 'lucky_number_id_backup', userId: this.userId, createdAt: new Date().toISOString() };
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `lucky_number_id_${this.userId}.json`;
-                a.click();
-                URL.revokeObjectURL(url);
-                this.showNotification('💾 ID сохранен в файл!');
-            }
+            if (wheel) {
+                wheel.classList.add('spinning');
+                const spinInterval = setInterval(() => {
+                    const randomNum = Math.floor(Math.random() * room.maxPlayers) + 1;
+                    if (wheelCenter) wheelCenter.textContent = randomNum;
+                }, 100);
 
-            exportData() {
-                const exportData = {
-                    version: '1.0',
-                    exportDate: new Date().toISOString(),
-                    userId: this.userId,
-                    balance: this.balance,
-                    history: this.history,
-                    rooms: this.rooms.map(room => ({ id: room.id, nominal: room.nominal, maxPlayers: room.maxPlayers, players: room.players, gameActive: room.gameActive }))
-                };
-                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `lucky_number_backup_${this.userId}_${Date.now()}.json`;
-                a.click();
-                URL.revokeObjectURL(url);
-                this.showNotification('📤 Данные экспортированы! Сохраните файл.');
-            }
+                setTimeout(() => {
+                    clearInterval(spinInterval);
+                    wheel.classList.remove('spinning');
+                    if (wheelCenter) wheelCenter.textContent = winners[0]?.player.number || '?';
 
-            importData() {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'application/json';
-                input.onchange = (e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        try {
-                            const imported = JSON.parse(event.target.result);
-                            if (imported.userId) {
-                                this.userId = imported.userId;
-                                localStorage.setItem('lucky_anonymous_id', this.userId);
-                                this.updateUserIdDisplay(this.userId);
+                    let myWin = 0;
+                    room.players = room.players.map(p => {
+                        const win = winners.find(w => w.player.id === p.id);
+                        if (win) {
+                            if (p.id === myPlayerId) {
+                                userData.balance += win.prize;
+                                myWin = win.prize;
                             }
-                            if (imported.balance !== undefined) this.balance = imported.balance;
-                            if (imported.history) this.history = imported.history;
-                            if (imported.rooms) {
-                                imported.rooms.forEach(importedRoom => {
-                                    const existingRoom = this.rooms.find(r => r.id === importedRoom.id);
-                                    if (existingRoom) {
-                                        existingRoom.players = importedRoom.players || [];
-                                        existingRoom.gameActive = importedRoom.gameActive || false;
-                                    }
-                                });
-                            }
-                            this.saveBalance();
-                            this.saveHistory();
-                            this.saveRooms();
-                            this.render();
-                            this.showNotification('✅ Данные успешно импортированы!');
-                        } catch (err) {
-                            this.showNotification('❌ Ошибка импорта: неверный формат файла', true);
                         }
+                        return p;
+                    });
+
+                    const gameRecord = {
+                        date: new Date().toLocaleString(),
+                        nominal: room.nominal,
+                        maxPlayers: room.maxPlayers,
+                        totalPot: totalPot,
+                        platformFee: platformFee,
+                        winners: winners.map(w => ({ number: w.player.number, prize: w.prize })),
+                        myWin: myWin
                     };
-                    reader.readAsText(file);
-                };
-                input.click();
-            }
+                    userData.history.unshift(gameRecord);
+                    saveUserData(currentUserId, userData);
 
-            resetAccount() {
-                if (confirm('⚠️ ВНИМАНИЕ! Это удалит ВСЕ ваши данные: баланс, историю, ID. Продолжить?')) {
-                    localStorage.removeItem(`lucky_balance_${this.userId}`);
-                    localStorage.removeItem(`lucky_history_${this.userId}`);
-                    localStorage.removeItem(`lucky_rooms_${this.userId}`);
-                    localStorage.removeItem('lucky_anonymous_id');
-                    this.userId = this.getOrCreateUserId();
-                    this.balance = 10000;
-                    this.history = [];
-                    this.rooms.forEach(room => { room.players = []; room.gameActive = false; });
-                    this.saveBalance();
-                    this.saveHistory();
-                    this.saveRooms();
-                    this.render();
-                    this.showNotification('🔄 Аккаунт сброшен. Создан новый ID.');
-                }
-            }
-
-            // ========== ХРАНЕНИЕ ДАННЫХ ==========
-            loadBalance() { return parseInt(localStorage.getItem(`lucky_balance_${this.userId}`)) || 10000; }
-            saveBalance() { localStorage.setItem(`lucky_balance_${this.userId}`, this.balance); }
-            loadHistory() { const saved = localStorage.getItem(`lucky_history_${this.userId}`); return saved ? JSON.parse(saved) : []; }
-            saveHistory() { localStorage.setItem(`lucky_history_${this.userId}`, JSON.stringify(this.history)); }
-            loadRooms() {
-                const saved = localStorage.getItem(`lucky_rooms_${this.userId}`);
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    if (parsed && parsed.length) {
-                        parsed.forEach((savedRoom, idx) => {
-                            if (this.rooms[idx]) {
-                                this.rooms[idx].players = savedRoom.players || [];
-                                this.rooms[idx].gameActive = savedRoom.gameActive || false;
-                            }
-                        });
-                    }
-                }
-            }
-            saveRooms() {
-                const roomsToSave = this.rooms.map(room => ({ id: room.id, nominal: room.nominal, maxPlayers: room.maxPlayers, players: room.players, gameActive: room.gameActive }));
-                localStorage.setItem(`lucky_rooms_${this.userId}`, JSON.stringify(roomsToSave));
-            }
-
-            // ========== UI И УВЕДОМЛЕНИЯ ==========
-            showNotification(message, isError = false) {
-                const notification = document.createElement('div');
-                notification.className = 'notification';
-                notification.textContent = message;
-                notification.style.background = isError ? '#e74c3c' : '#2DD4BF';
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 3000);
-            }
-
-            render() {
-                document.getElementById('balance').textContent = this.balance;
-                document.getElementById('headerBalance').textContent = this.balance;
-                this.renderRooms();
-                this.renderHistory();
-            }
-
-            renderRooms() {
-                const grid = document.getElementById('roomsGrid');
-                if (!grid) return;
-                grid.innerHTML = this.rooms.map((room, idx) => `
-                    <div class="room-card">
-                        <div class="room-header">
-                            <div class="room-bet">${room.nominal.toLocaleString()} <small>RUB</small></div>
-                            <div class="room-players-count">👥 ${room.maxPlayers} игроков</div>
+                    const resultDiv = document.getElementById('gameResult');
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <h3>🎉 РЕЗУЛЬТАТЫ РОЗЫГРЫША! 🎉</h3>
+                            <p><strong>Общий банк:</strong> ${totalPot.toLocaleString()} RUB</p>
+                            <p><strong>💰 Комиссия платформы:</strong> ${platformFee.toLocaleString()} RUB</p>
+                            <hr>
+                            <h4>🏆 Победители:</h4>
+                            ${winners.map(w => `🎲 Номер ${w.player.number} - выиграл ${w.prize.toLocaleString()} RUB`).join('<br>')}
+                            ${myWin ? `<h3 style="margin-top: 15px;">✨ ВЫ ВЫИГРАЛИ ${myWin.toLocaleString()} RUB! ✨</h3>` : '<p style="margin-top: 15px;">😢 В следующий раз повезет!</p>'}
                         </div>
-                        <div class="prize-info">🏆 ${room.prizeDesc}<br>💰 Комиссия: ${room.fee.toLocaleString()} RUB</div>
-                        <div class="player-avatars">
-                            ${room.players.slice(0, 8).map(p => `<div class="player-dot">${p.number}</div>`).join('')}
-                            ${room.players.length > 8 ? `<div class="player-dot">+${room.players.length - 8}</div>` : ''}
-                        </div>
-                        <div>👥 ${room.players.length}/${room.maxPlayers} игроков</div>
-                        <button class="join-btn" onclick="game.joinRoom(${idx})" 
-                            ${room.players.length >= room.maxPlayers || room.gameActive || this.balance < room.nominal ? 'disabled' : ''}>
-                            ${room.players.length >= room.maxPlayers ? '🔴 Полная' : room.gameActive ? '🎲 Игра идет' : `Войти (${room.nominal.toLocaleString()} RUB)`}
-                        </button>
-                    </div>
-                `).join('');
+                    `;
+
+                    rooms[roomIdx] = { ...room, players: [], gameActive: false };
+                    saveCurrentRooms();
+                    updateUI();
+
+                    setTimeout(() => closeGameModal(), 8000);
+                }, 3000);
             }
+        }
 
-            joinRoom(roomIdx) {
-                const room = this.rooms[roomIdx];
-                if (room.players.length >= room.maxPlayers || room.gameActive || this.balance < room.nominal) {
-                    this.showNotification('Нельзя войти в эту комнату', true);
-                    return;
-                }
-                this.balance -= room.nominal;
-                this.saveBalance();
-
-                const taken = room.players.map(p => p.number);
-                let available = [];
-                for (let i = 1; i <= room.maxPlayers; i++) if (!taken.includes(i)) available.push(i);
-                const number = available[Math.floor(Math.random() * available.length)];
-                this.myPlayerId = Date.now() + Math.random();
-                room.players.push({ id: this.myPlayerId, number: number, joinedAt: new Date().toISOString() });
-                this.saveRooms();
-                this.render();
-                this.showNotification(`✅ Вы вошли под номером ${number}! (${room.players.length}/${room.maxPlayers})`);
-                if (room.players.length === room.maxPlayers) this.startGame(roomIdx);
-                else this.openGameModal(roomIdx);
+        function closeGameModal() {
+            const modal = document.getElementById('gameModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.getElementById('gameResult').innerHTML = '';
+                currentRoom = null;
+                if (updateInterval) clearInterval(updateInterval);
             }
+        }
 
-            openGameModal(roomIdx) {
-                const room = this.rooms[roomIdx];
-                this.currentRoom = { ...room, index: roomIdx };
-                const modal = document.getElementById('gameModal');
-                document.getElementById('modalRoomTitle').textContent = `Комната ${room.nominal.toLocaleString()} RUB - Ваш номер ${room.players.find(p => p.id === this.myPlayerId)?.number || '?'}`;
-                document.getElementById('maxPlayers').textContent = room.maxPlayers;
-                document.getElementById('playerCount').textContent = room.players.length;
-                document.getElementById('gameStatus').innerHTML = `
-                    <div style="text-align: center; padding: 20px;">
-                        <h3>⏳ Ожидание игроков...</h3>
-                        <p style="font-size: 2em; color: #F5B042;">🎲 ${room.players.find(p => p.id === this.myPlayerId)?.number || '?'}</p>
-                        <p>Игроков в комнате: ${room.players.length}/${room.maxPlayers}</p>
-                        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px;">
-                            ${room.players.map(p => `<span style="background: rgba(245,176,66,0.2); padding: 5px 12px; border-radius: 20px;">Номер ${p.number}</span>`).join('')}
-                        </div>
-                        <p style="margin-top: 15px;">🏆 ${room.prizeDesc}</p>
-                    </div>
-                `;
-                modal.classList.add('active');
-                if (this.updateInterval) clearInterval(this.updateInterval);
-                this.updateInterval = setInterval(() => {
-                    const updatedRoom = this.rooms[roomIdx];
-                    if (updatedRoom && document.getElementById('gameModal').classList.contains('active')) {
-                        document.getElementById('playerCount').textContent = updatedRoom.players.length;
-                        if (updatedRoom.players.length === updatedRoom.maxPlayers && !updatedRoom.gameActive) {
-                            clearInterval(this.updateInterval);
-                            this.startGame(roomIdx);
+        // ========== УПРАВЛЕНИЕ АККАУНТОМ ==========
+        function openCabinet() {
+            document.getElementById('cabinetModal').classList.add('active');
+        }
+
+        function closeCabinet() {
+            document.getElementById('cabinetModal').classList.remove('active');
+            document.getElementById('userIdInput').value = '';
+        }
+
+        function closeAccountModal() {
+            document.getElementById('accountModal').classList.remove('active');
+        }
+
+        function login() {
+            let inputId = document.getElementById('userIdInput').value.trim().toUpperCase();
+            if (inputId.startsWith('LUCKY_')) inputId = inputId.substring(6);
+            if (inputId.length === 12 && /^[A-Z0-9]+$/.test(inputId)) {
+                currentUserId = inputId;
+                userData = loadUserData(currentUserId);
+                applyUserDataToRooms(userData.rooms);
+                updateUI();
+                closeCabinet();
+                document.getElementById('accountModal').classList.add('active');
+                showNotification(`✅ Добро пожаловать! Баланс: ${userData.balance} RUB`);
+            } else {
+                showNotification('❌ Неверный формат ID. ID должен быть 12 символов (буквы и цифры)', true);
+            }
+        }
+
+        function createNewAccount() {
+            currentUserId = generateNewId();
+            userData = { balance: 10000, history: [], rooms: [] };
+            saveUserData(currentUserId, userData);
+            rooms.forEach(room => { room.players = []; room.gameActive = false; });
+            updateUI();
+            closeCabinet();
+            document.getElementById('accountModal').classList.add('active');
+            showNotification(`✨ Новый аккаунт создан! Ваш ID: LUCKY_${currentUserId}. Сохраните его!`);
+        }
+
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти? Данные останутся сохраненными.')) {
+                currentUserId = null;
+                userData = null;
+                rooms.forEach(room => { room.players = []; room.gameActive = false; });
+                updateUI();
+                closeAccountModal();
+                showNotification('👋 Вы вышли из аккаунта');
+            }
+        }
+
+        function copyUserId() {
+            navigator.clipboard.writeText(`LUCKY_${currentUserId}`);
+            showNotification('✅ ID скопирован!');
+        }
+
+        function saveIdToFile() {
+            const data = { type: 'lucky_number_id_backup', userId: currentUserId, createdAt: new Date().toISOString() };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `lucky_number_id_${currentUserId}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('💾 ID сохранен в файл!');
+        }
+
+        function exportData() {
+            const exportData = {
+                version: '1.0',
+                exportDate: new Date().toISOString(),
+                userId: currentUserId,
+                balance: userData.balance,
+                history: userData.history,
+                rooms: rooms.map(room => ({ id: room.id, nominal: room.nominal, maxPlayers: room.maxPlayers, players: room.players, gameActive: room.gameActive }))
+            };
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `lucky_number_backup_${currentUserId}_${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('📤 Данные экспортированы!');
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const imported = JSON.parse(event.target.result);
+                        if (imported.userId) {
+                            currentUserId = imported.userId;
+                            localStorage.setItem('lucky_anonymous_id', currentUserId);
                         }
+                        if (imported.balance !== undefined) userData.balance = imported.balance;
+                        if (imported.history) userData.history = imported.history;
+                        if (imported.rooms) {
+                            imported.rooms.forEach(importedRoom => {
+                                const existingRoom = rooms.find(r => r.id === importedRoom.id);
+                                if (existingRoom) {
+                                    existingRoom.players = importedRoom.players || [];
+                                    existingRoom.gameActive = importedRoom.gameActive || false;
+                                }
+                            });
+                        }
+                        saveUserData(currentUserId, userData);
+                        updateUI();
+                        showNotification('✅ Данные успешно импортированы!');
+                    } catch (err) {
+                        showNotification('❌ Ошибка импорта: неверный формат файла', true);
                     }
-                }, 1000);
-            }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
 
-            checkFullRooms() {
-                this.rooms.forEach((room, idx) => { if (room.players.length === room.maxPlayers && !room.gameActive) this.startGame(idx); });
+        function deposit() {
+            const amount = prompt('Введите сумму пополнения (RUB):', '1000');
+            if (amount && !isNaN(amount) && parseInt(amount) > 0) {
+                userData.balance += parseInt(amount);
+                saveUserData(currentUserId, userData);
+                updateUI();
+                showNotification(`✅ Баланс пополнен на ${parseInt(amount).toLocaleString()} RUB`);
             }
+        }
 
-            startGame(roomIdx) {
-                const room = this.rooms[roomIdx];
-                if (room.gameActive) return;
-                room.gameActive = true;
-                this.saveRooms();
-                const modal = document.getElementById('gameModal');
-                if (modal && modal.classList.contains('active')) document.getElementById('gameStatus').innerHTML = '<h3>🎰 Игра начинается! Крутим рулетку...</h3>';
-                this.render();
-                setTimeout(() => this.spinWheel(roomIdx), 2000);
-            }
-
-            spinWheel(roomIdx) {
-                const room = this.rooms[roomIdx];
-                const totalPot = room.nominal * room.players.length;
-                const platformFee = room.fee;
-                const players = [...room.players];
-                for (let i = players.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [players[i], players[j]] = [players[j], players[i]]; }
-                const winners = [];
-                for (let i = 0; i < room.winners && i < players.length; i++) winners.push({ player: players[i], prize: room.prize });
-                if (room.refund && players.length >= room.winners + 1) winners.push({ player: players[room.winners], prize: room.refund });
-                const wheel = document.getElementById('wheel');
-                const wheelCenter = document.getElementById('wheelCenter');
-                if (wheel) {
-                    wheel.classList.add('spinning');
-                    const spinInterval = setInterval(() => { const randomNum = Math.floor(Math.random() * room.maxPlayers) + 1; if (wheelCenter) wheelCenter.textContent = randomNum; }, 100);
-                    setTimeout(() => {
-                        clearInterval(spinInterval);
-                        wheel.classList.remove('spinning');
-                        if (wheelCenter) wheelCenter.textContent = winners[0]?.player.number || '?';
-                        let myWin = 0;
-                        room.players = room.players.map(p => {
-                            const win = winners.find(w => w.player.id === p.id);
-                            if (win) { if (p.id === this.myPlayerId) { this.balance += win.prize; myWin = win.prize; this.saveBalance(); } }
-                            return p;
-                        });
-                        const gameRecord = { date: new Date().toLocaleString(), nominal: room.nominal, maxPlayers: room.maxPlayers, totalPot, platformFee, winners: winners.map(w => ({ number: w.player.number, prize: w.prize })), myWin };
-                        this.history.unshift(gameRecord);
-                        this.saveHistory();
-                        const resultDiv = document.getElementById('gameResult');
-                        resultDiv.innerHTML = `
-                            <div class="result-box">
-                                <h3>🎉 РЕЗУЛЬТАТЫ РОЗЫГРЫША! 🎉</h3>
-                                <p><strong>Общий банк:</strong> ${totalPot.toLocaleString()} RUB</p>
-                                <p><strong>💰 Комиссия платформы:</strong> ${platformFee.toLocaleString()} RUB</p>
-                                <hr>
-                                <h4>🏆 Победители:</h4>
-                                ${winners.map(w => `🎲 Номер ${w.player.number} - выиграл ${w.prize.toLocaleString()} RUB`).join('<br>')}
-                                ${myWin ? `<h3 style="margin-top: 15px;">✨ ВЫ ВЫИГРАЛИ ${myWin.toLocaleString()} RUB! ✨</h3>` : '<p style="margin-top: 15px;">😢 В следующий раз повезет!</p>'}
-                            </div>
-                        `;
-                        this.rooms[roomIdx] = { ...room, players: [], gameActive: false };
-                        this.saveRooms();
-                        this.render();
-                        setTimeout(() => this.closeModal(), 8000);
-                    }, 3000);
-                }
-            }
-
-            renderHistory() {
-                const container = document.getElementById('historyList');
-                if (!container) return;
-                if (this.history.length === 0) { container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">История игр пуста</div>'; return; }
-                container.innerHTML = this.history.slice(0, 20).map(game => `
-                    <div class="history-item">
-                        <strong>📅 ${game.date}</strong><br>
-                        🎲 Комната ${game.nominal.toLocaleString()} RUB | 👥 ${game.maxPlayers} игроков<br>
-                        🏆 Победители: ${game.winners.map(w => `#${w.number} (${w.prize.toLocaleString()} RUB)`).join(', ')}<br>
-                        💰 Комиссия: ${game.platformFee.toLocaleString()} RUB<br>
-                        ${game.myWin > 0 ? `🎉 Ваш выигрыш: ${game.myWin.toLocaleString()} RUB!` : '😢 Вы не выиграли'}
-                    </div>
-                `).join('');
-            }
-
-            deposit() {
-                const amount = prompt('Введите сумму пополнения (RUB):', '1000');
-                if (amount && !isNaN(amount) && parseInt(amount) > 0) {
-                    this.balance += parseInt(amount);
-                    this.saveBalance();
-                    this.render();
-                    this.showNotification(`✅ Баланс пополнен на ${parseInt(amount).toLocaleString()} RUB`);
-                }
-            }
-
-            withdraw() {
-                const amount = prompt('Введите сумму вывода (RUB):', '1000');
-                if (amount && !isNaN(amount) && parseInt(amount) > 0) {
-                    if (this.balance >= parseInt(amount)) {
-                        this.balance -= parseInt(amount);
-                        this.saveBalance();
-                        this.render();
-                        this.showNotification(`✅ Заявка на вывод ${parseInt(amount).toLocaleString()} RUB принята. Для получения средств свяжитесь с поддержкой.`);
-                    } else { this.showNotification('❌ Недостаточно средств!', true); }
-                }
-            }
-
-            closeModal() {
-                const modal = document.getElementById('gameModal');
-                if (modal) {
-                    modal.classList.remove('active');
-                    document.getElementById('gameResult').innerHTML = '';
-                    this.currentRoom = null;
-                    if (this.updateInterval) clearInterval(this.updateInterval);
+        function withdraw() {
+            const amount = prompt('Введите сумму вывода (RUB):', '1000');
+            if (amount && !isNaN(amount) && parseInt(amount) > 0) {
+                if (userData.balance >= parseInt(amount)) {
+                    userData.balance -= parseInt(amount);
+                    saveUserData(currentUserId, userData);
+                    updateUI();
+                    showNotification(`✅ Заявка на вывод ${parseInt(amount).toLocaleString()} RUB принята. Для получения средств свяжитесь с поддержкой.`);
+                } else {
+                    showNotification('❌ Недостаточно средств!', true);
                 }
             }
         }
 
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
-            document.getElementById(tab + 'Tab').classList.add('active');
-            event.target.classList.add('active');
+        // ========== ИНИЦИАЛИЗАЦИЯ ==========
+        function checkFullRooms() {
+            rooms.forEach((room, idx) => {
+                if (room.players.length === room.maxPlayers && !room.gameActive) {
+                    startGame(idx);
+                }
+            });
         }
 
-        const game = new AnonymousGame();
+        setInterval(checkFullRooms, 2000);
+        updateUI();
     </script>
 </body>
 </html>
