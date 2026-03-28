@@ -357,12 +357,7 @@
         .player-card.winner {
             background: linear-gradient(135deg, #F5B042, #FFC75F);
             color: #0A0F2A;
-            animation: pulse 0.5s;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            animation: winnerPulse 1s ease infinite;
         }
 
         .player-number {
@@ -427,6 +422,47 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
+        /* Win Toast */
+        .win-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+            animation: winToastPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .win-toast-content {
+            background: linear-gradient(135deg, #F5B042, #FFC75F);
+            color: #0A0F2A;
+            padding: 24px 48px;
+            border-radius: 60px;
+            font-size: 1.5em;
+            font-weight: 800;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(245, 176, 66, 0.8);
+            border: 2px solid white;
+        }
+
+        @keyframes winToastPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            80% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes winnerPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 176, 66, 0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(245, 176, 66, 0); }
+        }
+
         .footer-note {
             text-align: center;
             margin-top: 40px;
@@ -441,6 +477,7 @@
             .players-grid { grid-template-columns: repeat(2, 1fr); }
             .modal-buttons { flex-direction: column; }
             .header { flex-direction: column; text-align: center; }
+            .win-toast-content { padding: 16px 24px; font-size: 1.2em; }
         }
     </style>
 </head>
@@ -638,6 +675,36 @@
             setTimeout(() => notification.remove(), 3000);
         }
 
+        // ========== УВЕДОМЛЕНИЯ О ПОБЕДЕ ==========
+        function showWinToast(amount, number) {
+            const toast = document.createElement('div');
+            toast.className = 'win-toast';
+            toast.innerHTML = `
+                <div class="win-toast-content">
+                    🎉✨ ПОБЕДА! ✨🎉<br>
+                    Ваш номер ${number} выиграл!<br>
+                    +${amount.toLocaleString()} RUB
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        function blinkTabTitle() {
+            const originalTitle = document.title;
+            let count = 0;
+            const interval = setInterval(() => {
+                document.title = count % 2 === 0 ? '🏆 ПОБЕДА! 🏆' : originalTitle;
+                count++;
+                if (count > 10) clearInterval(interval);
+            }, 500);
+        }
+
+        // Запрос разрешения на уведомления
+        if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+
         // ========== ОТОБРАЖЕНИЕ КОМНАТ ==========
         function renderRooms() {
             const grid = document.getElementById('roomsGrid');
@@ -816,16 +883,31 @@
                     if (wheelCenter) wheelCenter.textContent = winners[0]?.player.number || '?';
 
                     let myWin = 0;
+                    let myWinningNumber = null;
+                    
                     room.players = room.players.map(p => {
                         const win = winners.find(w => w.player.id === p.id);
                         if (win) {
                             if (p.id === myPlayerId) {
                                 userData.balance += win.prize;
                                 myWin = win.prize;
+                                myWinningNumber = p.number;
                             }
                         }
                         return p;
                     });
+
+                    // ========== УВЕДОМЛЕНИЕ О ПОБЕДЕ ==========
+                    if (myWin > 0) {
+                        showWinToast(myWin, myWinningNumber);
+                        blinkTabTitle();
+                        if (Notification.permission === 'granted') {
+                            new Notification('🏆 ПОБЕДА в Lucky Number! 🏆', {
+                                body: `Ваш номер ${myWinningNumber} выиграл ${myWin.toLocaleString()} RUB!`,
+                                icon: 'https://cdn-icons-png.flaticon.com/512/190/190411.png'
+                            });
+                        }
+                    }
 
                     const gameRecord = {
                         date: new Date().toLocaleString(),
@@ -834,7 +916,8 @@
                         totalPot: totalPot,
                         platformFee: platformFee,
                         winners: winners.map(w => ({ number: w.player.number, prize: w.prize })),
-                        myWin: myWin
+                        myWin: myWin,
+                        myNumber: myWinningNumber
                     };
                     userData.history.unshift(gameRecord);
                     saveUserData(currentUserId, userData);
@@ -848,7 +931,7 @@
                             <hr>
                             <h4>🏆 Победители:</h4>
                             ${winners.map(w => `🎲 Номер ${w.player.number} - выиграл ${w.prize.toLocaleString()} RUB`).join('<br>')}
-                            ${myWin ? `<h3 style="margin-top: 15px;">✨ ВЫ ВЫИГРАЛИ ${myWin.toLocaleString()} RUB! ✨</h3>` : '<p style="margin-top: 15px;">😢 В следующий раз повезет!</p>'}
+                            ${myWin ? `<h3 style="margin-top: 15px; font-size: 1.5em;">✨ ВЫ ВЫИГРАЛИ ${myWin.toLocaleString()} RUB! ✨</h3>` : '<p style="margin-top: 15px;">😢 В следующий раз повезет!</p>'}
                         </div>
                     `;
 
@@ -972,7 +1055,6 @@
                         const imported = JSON.parse(event.target.result);
                         if (imported.userId) {
                             currentUserId = imported.userId;
-                            localStorage.setItem('lucky_anonymous_id', currentUserId);
                         }
                         if (imported.balance !== undefined) userData.balance = imported.balance;
                         if (imported.history) userData.history = imported.history;
