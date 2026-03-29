@@ -81,13 +81,38 @@
             font-weight: 600;
         }
 
-        /* Section Title */
-        .section-title {
-            font-size: 1.3em;
-            font-weight: 700;
-            margin: 30px 0 20px;
-            padding-left: 16px;
-            border-left: 4px solid #F5B042;
+        .create-room-btn {
+            background: linear-gradient(135deg, #2DD4BF, #1e9b8a);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: #0A0F2A;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #F5B042, #FFC75F);
+            color: #0A0F2A;
         }
 
         /* Rooms Grid */
@@ -109,6 +134,11 @@
         .room-card:hover {
             transform: translateY(-4px);
             border-color: #F5B042;
+        }
+
+        .room-card.private {
+            border: 2px solid #2DD4BF;
+            background: rgba(45, 212, 191, 0.1);
         }
 
         .room-header {
@@ -135,6 +165,26 @@
             border-radius: 20px;
             font-size: 0.75em;
             color: #2DD4BF;
+        }
+
+        .private-badge {
+            background: rgba(45, 212, 191, 0.3);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            color: #2DD4BF;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .invite-code {
+            font-family: monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            margin: 10px 0;
+            text-align: center;
         }
 
         .prize-info {
@@ -237,7 +287,11 @@
             font-size: 1em;
             margin: 10px 0;
             text-align: center;
-            font-family: monospace;
+        }
+
+        select.modal-input {
+            appearance: none;
+            cursor: pointer;
         }
 
         .modal-buttons {
@@ -270,6 +324,17 @@
             font-size: 28px;
             cursor: pointer;
             color: #F5B042;
+        }
+
+        .share-code {
+            background: #0A0F2A;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            margin: 10px 0;
+            text-align: center;
         }
 
         /* Game Modal */
@@ -426,10 +491,20 @@
             50% { transform: scale(1.05); }
         }
 
+        .share-panel {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             .rooms-grid { grid-template-columns: 1fr; }
             .players-grid { grid-template-columns: repeat(2, 1fr); }
+            .tabs { justify-content: center; }
             .win-toast-content { padding: 16px 24px; font-size: 1.2em; }
+            .modal-buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -439,28 +514,79 @@
         <div class="header">
             <div class="logo">
                 <h1>🎰 Lucky Number</h1>
-                <p>Счастливый Номер | Моментальная лотерея</p>
+                <p>Счастливый Номер | Играй с друзьями</p>
             </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
+            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                 <div class="balance-card" onclick="openCabinet()">
                     <div class="label">💰 Баллы</div>
                     <div class="value" id="headerBalance">0</div>
                     <div class="label">RUB</div>
                 </div>
                 <button class="cabinet-btn" onclick="openCabinet()">👤 Личный кабинет</button>
+                <button class="create-room-btn" onclick="openCreatePrivateModal()">✨ Создать комнату</button>
             </div>
         </div>
 
-        <!-- Rooms Section -->
-        <div class="section-title">🎲 Выберите комнату</div>
-        <div class="rooms-grid" id="roomsGrid"></div>
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('public')">🎲 Публичные комнаты</button>
+            <button class="tab-btn" onclick="switchTab('private')">🔒 Мои комнаты</button>
+            <button class="tab-btn" onclick="openJoinPrivateModal()">🔑 Войти по коду</button>
+        </div>
+
+        <!-- Public Rooms Grid -->
+        <div id="publicTab" class="rooms-grid"></div>
+
+        <!-- Private Rooms Grid -->
+        <div id="privateTab" class="rooms-grid" style="display: none;"></div>
 
         <!-- History -->
-        <div class="section-title">📜 История игр</div>
+        <div class="section-title" style="font-size: 1.3em; font-weight: 700; margin: 30px 0 20px; padding-left: 16px; border-left: 4px solid #F5B042;">📜 История игр</div>
         <div class="history-list" id="historyList"></div>
     </div>
 
-    <!-- Modals -->
+    <!-- Модальное окно создания приватной комнаты -->
+    <div id="createPrivateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCreatePrivateModal()">&times;</span>
+            <h2>✨ Создать приватную комнату</h2>
+            <p>Пригласите друзей по уникальному коду</p>
+            
+            <select id="privateNominal" class="modal-input">
+                <option value="1000">1,000 RUB</option>
+                <option value="2000">2,000 RUB</option>
+                <option value="5000">5,000 RUB</option>
+            </select>
+            
+            <select id="privatePlayers" class="modal-input">
+                <option value="3">3 игрока</option>
+                <option value="5">5 игроков</option>
+                <option value="7">7 игроков</option>
+                <option value="10">10 игроков</option>
+            </select>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn btn-primary" onclick="createPrivateRoom()">🚀 Создать комнату</button>
+                <button class="modal-btn btn-secondary" onclick="closeCreatePrivateModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно входа по коду -->
+    <div id="joinPrivateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeJoinPrivateModal()">&times;</span>
+            <h2>🔑 Войти по коду</h2>
+            <p>Введите код приглашения от друга</p>
+            <input type="text" id="inviteCodeInput" class="modal-input" placeholder="XXXXXX" maxlength="6" autocomplete="off" style="text-transform: uppercase;">
+            <div class="modal-buttons">
+                <button class="modal-btn btn-primary" onclick="joinByCode()">🔓 Войти</button>
+                <button class="modal-btn btn-secondary" onclick="closeJoinPrivateModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Личный кабинет -->
     <div id="cabinetModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeCabinet()">&times;</span>
@@ -485,6 +611,7 @@
         </div>
     </div>
 
+    <!-- Игровое модальное окно -->
     <div id="gameModal" class="game-modal">
         <div class="game-modal-content">
             <span class="close-modal" onclick="closeGameModal()">&times;</span>
@@ -498,11 +625,12 @@
             <div class="players-grid" id="playersGrid"></div>
             <div id="gameStatus" style="text-align: center; padding: 15px;"></div>
             <div id="gameResult"></div>
+            <div id="sharePanel" class="share-panel" style="display: none;"></div>
         </div>
     </div>
 
     <script>
-        // ========== КОНФИГУРАЦИЯ КОМНАТ (БЕЗ КОМИССИИ В UI) ==========
+        // ========== КОНФИГУРАЦИЯ ==========
         const roomTypes = {
             3: { winners: 1, prizeMultiplier: 2, refund: null, prizeDesc: "1 победитель → 2000 RUB" },
             5: { winners: 2, prizeMultiplier: 2, refund: null, prizeDesc: "2 победителя → по 2000 RUB" },
@@ -514,95 +642,123 @@
         const playerCounts = [3, 5, 7, 10];
 
         let publicRooms = [];
+        let privateRooms = [];
         let currentUserId = null;
         let userData = null;
         let myPlayerId = null;
+        let currentRoomRef = null;
         let updateInterval = null;
 
-        // Инициализация комнат
+        // ========== ИНИЦИАЛИЗАЦИЯ ==========
         function initPublicRooms() {
             publicRooms = [];
             for (const nominal of nominals) {
                 for (const players of playerCounts) {
                     const type = roomTypes[players];
                     publicRooms.push({
-                        id: `${nominal}_${players}`,
+                        id: `public_${nominal}_${players}`,
                         nominal: nominal,
                         maxPlayers: players,
                         players: [],
                         gameActive: false,
+                        isPrivate: false,
                         prizeDesc: type.prizeDesc,
                         winners: type.winners,
                         prize: nominal * type.prizeMultiplier,
-                        refund: type.refund ? nominal * type.refund : null,
-                        fee: nominal * 1 // комиссия скрыта от игроков
+                        refund: type.refund ? nominal * type.refund : null
                     });
                 }
             }
         }
 
-        // Функции пользователя
-        function generateNewId() { return Math.random().toString(36).substring(2, 14).toUpperCase(); }
-        
-        function loadUserData(id) {
-            return {
-                balance: parseInt(localStorage.getItem(`lucky_balance_${id}`)) || 10000,
-                history: JSON.parse(localStorage.getItem(`lucky_history_${id}`) || '[]')
-            };
-        }
-        
-        function saveUserData(id, data) {
-            localStorage.setItem(`lucky_balance_${id}`, data.balance);
-            localStorage.setItem(`lucky_history_${id}`, JSON.stringify(data.history));
+        function generateInviteCode() {
+            return Math.random().toString(36).substring(2, 8).toUpperCase();
         }
 
-        function savePublicRooms() { localStorage.setItem('lucky_rooms', JSON.stringify(publicRooms)); }
-        
-        function loadPublicRooms() {
-            const saved = localStorage.getItem('lucky_rooms');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                if (parsed && parsed.length) {
-                    parsed.forEach((savedRoom, idx) => {
-                        if (publicRooms[idx]) {
-                            publicRooms[idx].players = savedRoom.players || [];
-                            publicRooms[idx].gameActive = savedRoom.gameActive || false;
-                        }
-                    });
-                }
+        function createPrivateRoom() {
+            if (!userData) {
+                showNotification('Сначала войдите в личный кабинет!', true);
+                openCabinet();
+                return;
             }
-        }
 
-        function renderRooms() {
-            const grid = document.getElementById('roomsGrid');
-            if (!grid) return;
+            const nominal = parseInt(document.getElementById('privateNominal').value);
+            const players = parseInt(document.getElementById('privatePlayers').value);
+            const type = roomTypes[players];
+            const inviteCode = generateInviteCode();
             
-            grid.innerHTML = publicRooms.map((room, idx) => `
-                <div class="room-card">
-                    <div class="room-header">
-                        <div class="room-bet">${room.nominal.toLocaleString()} <small>RUB</small></div>
-                        <div class="room-players-count">👥 ${room.maxPlayers} игроков</div>
-                    </div>
-                    <div class="prize-info">
-                        🏆 ${room.prizeDesc}
-                    </div>
-                    <div class="player-avatars">
-                        ${room.players.slice(0, 8).map(p => `<div class="player-dot">${p.number}</div>`).join('')}
-                        ${room.players.length > 8 ? `<div class="player-dot">+${room.players.length-8}</div>` : ''}
-                    </div>
-                    <div>👥 ${room.players.length}/${room.maxPlayers} игроков</div>
-                    <button class="join-btn" onclick="joinRoom(${idx})" 
-                        ${!userData || room.players.length >= room.maxPlayers || room.gameActive || userData.balance < room.nominal ? 'disabled' : ''}>
-                        ${room.players.length >= room.maxPlayers ? '🔴 Полная' : 
-                          room.gameActive ? '🎲 Игра идет' : 
-                          `Войти (${room.nominal.toLocaleString()} RUB)`}
-                    </button>
-                </div>
-            `).join('');
+            const privateRoom = {
+                id: `private_${inviteCode}`,
+                nominal: nominal,
+                maxPlayers: players,
+                players: [],
+                gameActive: false,
+                isPrivate: true,
+                inviteCode: inviteCode,
+                creatorId: currentUserId,
+                createdAt: new Date().toISOString(),
+                prizeDesc: type.prizeDesc,
+                winners: type.winners,
+                prize: nominal * type.prizeMultiplier,
+                refund: type.refund ? nominal * type.refund : null
+            };
+            
+            privateRooms.push(privateRoom);
+            savePrivateRooms();
+            closeCreatePrivateModal();
+            showInviteCodeModal(inviteCode, nominal, players);
         }
 
-        function joinRoom(roomIdx) {
-            const room = publicRooms[roomIdx];
+        function showInviteCodeModal(code, nominal, players) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'flex';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 400px;">
+                    <span class="close-modal" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                    <h2>🎉 Комната создана!</h2>
+                    <p>Пригласите друзей по коду:</p>
+                    <div class="share-code" style="font-size: 2em; letter-spacing: 4px;">${code}</div>
+                    <div class="modal-buttons">
+                        <button class="modal-btn btn-primary" onclick="copyInviteCode('${code}')">📋 Скопировать код</button>
+                        <button class="modal-btn btn-secondary" onclick="shareViaTelegram('${code}', ${nominal}, ${players})">📱 Поделиться</button>
+                    </div>
+                    <button class="join-btn" style="margin-top: 15px;" onclick="joinPrivateRoomByCode('${code}'); this.parentElement.parentElement.parentElement.remove();">🔓 Войти в комнату</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function copyInviteCode(code) {
+            navigator.clipboard.writeText(code);
+            showNotification('✅ Код скопирован! Отправьте друзьям.');
+        }
+
+        function shareViaTelegram(code, nominal, players) {
+            const text = encodeURIComponent(`🎰 Lucky Number! Присоединяйся ко мне в игру!\nКомната: ${nominal} RUB, ${players} игроков\nКод приглашения: ${code}\nИграй здесь: ${window.location.href}`);
+            window.open(`https://t.me/share/url?url=${text}`, '_blank');
+        }
+
+        function joinByCode() {
+            const code = document.getElementById('inviteCodeInput').value.trim().toUpperCase();
+            if (!code) {
+                showNotification('Введите код приглашения!', true);
+                return;
+            }
+            joinPrivateRoomByCode(code);
+            closeJoinPrivateModal();
+        }
+
+        function joinPrivateRoomByCode(code) {
+            const room = privateRooms.find(r => r.inviteCode === code);
+            if (!room) {
+                showNotification('❌ Комната с таким кодом не найдена!', true);
+                return;
+            }
+            joinRoom(room, true);
+        }
+
+        function joinRoom(room, isPrivate = false) {
             if (!userData) {
                 showNotification('Сначала войдите в личный кабинет!', true);
                 openCabinet();
@@ -631,25 +787,48 @@
                 joinedAt: new Date().toISOString()
             });
 
-            savePublicRooms();
+            if (isPrivate) {
+                savePrivateRooms();
+                renderPrivateRooms();
+            } else {
+                savePublicRooms();
+                renderPublicRooms();
+            }
             updateUI();
             showNotification(`✅ Вы вошли под номером ${number}! (${room.players.length}/${room.maxPlayers})`);
 
             if (room.players.length === room.maxPlayers) {
-                startGame(roomIdx);
+                startGame(room, isPrivate);
             } else {
-                openGameModal(roomIdx);
+                openGameModal(room, isPrivate);
             }
         }
 
-        function openGameModal(roomIdx) {
-            const room = publicRooms[roomIdx];
+        function openGameModal(room, isPrivate) {
+            currentRoomRef = { room, isPrivate };
             const modal = document.getElementById('gameModal');
             const currentPlayer = room.players.find(p => p.id === myPlayerId);
             
             document.getElementById('modalRoomTitle').textContent = `Комната ${room.nominal.toLocaleString()} RUB - Ваш номер ${currentPlayer?.number || '?'}`;
             document.getElementById('maxPlayers').textContent = room.maxPlayers;
             document.getElementById('playerCount').textContent = room.players.length;
+            
+            const sharePanel = document.getElementById('sharePanel');
+            if (room.isPrivate && room.inviteCode) {
+                sharePanel.style.display = 'block';
+                sharePanel.innerHTML = `
+                    <p>🔑 <strong>Код приглашения:</strong></p>
+                    <div class="share-code" style="font-size: 1.5em;">${room.inviteCode}</div>
+                    <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                        <button class="btn-primary" style="padding: 8px 16px; border-radius: 20px;" onclick="copyInviteCode('${room.inviteCode}')">📋 Скопировать код</button>
+                        <button class="btn-secondary" style="padding: 8px 16px; border-radius: 20px;" onclick="shareViaTelegram('${room.inviteCode}', ${room.nominal}, ${room.maxPlayers})">📱 Пригласить друзей</button>
+                    </div>
+                    <p style="font-size: 0.7em; margin-top: 10px;">Отправьте код друзьям, чтобы они присоединились!</p>
+                `;
+            } else {
+                sharePanel.style.display = 'none';
+            }
+            
             document.getElementById('gameStatus').innerHTML = `
                 <div style="text-align: center; padding: 20px;">
                     <h3>⏳ Ожидание игроков...</h3>
@@ -665,22 +844,29 @@
 
             if (updateInterval) clearInterval(updateInterval);
             updateInterval = setInterval(() => {
-                const updatedRoom = publicRooms[roomIdx];
+                const updatedRoom = isPrivate ? 
+                    privateRooms.find(r => r.id === room.id) : 
+                    publicRooms.find(r => r.id === room.id);
+                    
                 if (updatedRoom && document.getElementById('gameModal').classList.contains('active')) {
                     document.getElementById('playerCount').textContent = updatedRoom.players.length;
                     if (updatedRoom.players.length === updatedRoom.maxPlayers && !updatedRoom.gameActive) {
                         clearInterval(updateInterval);
-                        startGame(roomIdx);
+                        startGame(updatedRoom, isPrivate);
                     }
                 }
             }, 1000);
         }
 
-        function startGame(roomIdx) {
-            const room = publicRooms[roomIdx];
+        function startGame(room, isPrivate) {
             if (room.gameActive) return;
             room.gameActive = true;
-            savePublicRooms();
+            
+            if (isPrivate) {
+                savePrivateRooms();
+            } else {
+                savePublicRooms();
+            }
 
             const modal = document.getElementById('gameModal');
             if (modal && modal.classList.contains('active')) {
@@ -688,13 +874,11 @@
             }
             updateUI();
 
-            setTimeout(() => spinWheel(roomIdx), 2000);
+            setTimeout(() => spinWheel(room, isPrivate), 2000);
         }
 
-        function spinWheel(roomIdx) {
-            const room = publicRooms[roomIdx];
+        function spinWheel(room, isPrivate) {
             const totalPot = room.nominal * room.players.length;
-            const platformFee = room.fee;
 
             const players = [...room.players];
             for (let i = players.length - 1; i > 0; i--) {
@@ -751,7 +935,9 @@
                         maxPlayers: room.maxPlayers,
                         totalPot: totalPot,
                         winners: winners.map(w => ({ number: w.player.number, prize: w.prize })),
-                        myWin: myWin
+                        myWin: myWin,
+                        isPrivate: isPrivate,
+                        inviteCode: room.inviteCode
                     };
                     userData.history.unshift(gameRecord);
                     saveUserData(currentUserId, userData);
@@ -768,14 +954,86 @@
                         </div>
                     `;
 
-                    publicRooms[roomIdx] = { ...room, players: [], gameActive: false };
-                    savePublicRooms();
+                    if (isPrivate) {
+                        const index = privateRooms.findIndex(r => r.id === room.id);
+                        if (index !== -1) privateRooms.splice(index, 1);
+                        savePrivateRooms();
+                        renderPrivateRooms();
+                    } else {
+                        const index = publicRooms.findIndex(r => r.id === room.id);
+                        if (index !== -1) {
+                            publicRooms[index] = { ...room, players: [], gameActive: false };
+                        }
+                        savePublicRooms();
+                        renderPublicRooms();
+                    }
+                    
                     updateUI();
                     renderHistory();
 
                     setTimeout(() => closeGameModal(), 8000);
                 }, 3000);
             }
+        }
+
+        // ========== UI ФУНКЦИИ ==========
+        function renderPublicRooms() {
+            const grid = document.getElementById('publicTab');
+            if (!grid) return;
+            
+            grid.innerHTML = publicRooms.map((room, idx) => `
+                <div class="room-card">
+                    <div class="room-header">
+                        <div class="room-bet">${room.nominal.toLocaleString()} <small>RUB</small></div>
+                        <div class="room-players-count">👥 ${room.maxPlayers} игроков</div>
+                    </div>
+                    <div class="prize-info">🏆 ${room.prizeDesc}</div>
+                    <div class="player-avatars">
+                        ${room.players.slice(0, 8).map(p => `<div class="player-dot">${p.number}</div>`).join('')}
+                        ${room.players.length > 8 ? `<div class="player-dot">+${room.players.length-8}</div>` : ''}
+                    </div>
+                    <div>👥 ${room.players.length}/${room.maxPlayers} игроков</div>
+                    <button class="join-btn" onclick="joinRoom(publicRooms[${idx}], false)" 
+                        ${!userData || room.players.length >= room.maxPlayers || room.gameActive || userData.balance < room.nominal ? 'disabled' : ''}>
+                        ${room.players.length >= room.maxPlayers ? '🔴 Полная' : 
+                          room.gameActive ? '🎲 Игра идет' : 
+                          `Войти (${room.nominal.toLocaleString()} RUB)`}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderPrivateRooms() {
+            const grid = document.getElementById('privateTab');
+            if (!grid) return;
+            
+            if (privateRooms.length === 0) {
+                grid.innerHTML = '<div style="text-align: center; padding: 40px; color: #A0A3BD;">Нет активных приватных комнат<br>Создайте свою комнату и пригласите друзей!</div>';
+                return;
+            }
+            
+            grid.innerHTML = privateRooms.map((room, idx) => `
+                <div class="room-card private">
+                    <div class="private-badge">🔒 Приватная комната</div>
+                    <div class="room-header">
+                        <div class="room-bet">${room.nominal.toLocaleString()} <small>RUB</small></div>
+                        <div class="room-players-count">👥 ${room.maxPlayers} игроков</div>
+                    </div>
+                    <div class="prize-info">🏆 ${room.prizeDesc}</div>
+                    <div class="invite-code">Код: ${room.inviteCode}</div>
+                    <div class="player-avatars">
+                        ${room.players.slice(0, 8).map(p => `<div class="player-dot">${p.number}</div>`).join('')}
+                        ${room.players.length > 8 ? `<div class="player-dot">+${room.players.length-8}</div>` : ''}
+                    </div>
+                    <div>👥 ${room.players.length}/${room.maxPlayers} игроков</div>
+                    <button class="join-btn" onclick="joinRoom(privateRooms[${idx}], true)" 
+                        ${!userData || room.players.length >= room.maxPlayers || room.gameActive || userData.balance < room.nominal ? 'disabled' : ''}>
+                        ${room.players.length >= room.maxPlayers ? '🔴 Полная' : 
+                          room.gameActive ? '🎲 Игра идет' : 
+                          `Войти (${room.nominal.toLocaleString()} RUB)`}
+                    </button>
+                </div>
+            `).join('');
         }
 
         function renderHistory() {
@@ -787,7 +1045,7 @@
             container.innerHTML = userData.history.slice(0, 15).map(game => `
                 <div class="history-item">
                     <strong>📅 ${game.date}</strong><br>
-                    🎲 Комната ${game.nominal.toLocaleString()} RUB | 👥 ${game.maxPlayers} игроков<br>
+                    🎲 Комната ${game.nominal.toLocaleString()} RUB | 👥 ${game.maxPlayers} игроков${game.isPrivate ? ' 🔒 Приватная' : ''}<br>
                     🏆 Победители: ${game.winners.map(w => `#${w.number} (${w.prize.toLocaleString()} RUB)`).join(', ')}<br>
                     ${game.myWin > 0 ? `🎉 Ваш выигрыш: ${game.myWin.toLocaleString()} RUB!` : '😢 Вы не выиграли'}
                 </div>
@@ -800,8 +1058,63 @@
                 document.getElementById('accountBalance').textContent = userData.balance;
                 document.getElementById('accountUserId').textContent = `LUCKY_${currentUserId}`;
             }
-            renderRooms();
+            renderPublicRooms();
+            renderPrivateRooms();
             renderHistory();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (tab === 'public') {
+                document.getElementById('publicTab').style.display = 'grid';
+                document.getElementById('privateTab').style.display = 'none';
+                renderPublicRooms();
+            } else {
+                document.getElementById('publicTab').style.display = 'none';
+                document.getElementById('privateTab').style.display = 'grid';
+                renderPrivateRooms();
+            }
+        }
+
+        // ========== ХРАНЕНИЕ ДАННЫХ ==========
+        function savePublicRooms() { localStorage.setItem('lucky_public_rooms', JSON.stringify(publicRooms)); }
+        function savePrivateRooms() { localStorage.setItem('lucky_private_rooms', JSON.stringify(privateRooms)); }
+        
+        function loadPrivateRooms() {
+            const saved = localStorage.getItem('lucky_private_rooms');
+            if (saved) privateRooms = JSON.parse(saved);
+        }
+        
+        function loadPublicRooms() {
+            const saved = localStorage.getItem('lucky_public_rooms');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (parsed && parsed.length) {
+                    parsed.forEach((savedRoom, idx) => {
+                        if (publicRooms[idx]) {
+                            publicRooms[idx].players = savedRoom.players || [];
+                            publicRooms[idx].gameActive = savedRoom.gameActive || false;
+                        }
+                    });
+                }
+            }
+        }
+
+        // ========== ФУНКЦИИ ПОЛЬЗОВАТЕЛЯ ==========
+        function generateNewId() { return Math.random().toString(36).substring(2, 14).toUpperCase(); }
+        
+        function loadUserData(id) {
+            return {
+                balance: parseInt(localStorage.getItem(`lucky_balance_${id}`)) || 10000,
+                history: JSON.parse(localStorage.getItem(`lucky_history_${id}`) || '[]')
+            };
+        }
+        
+        function saveUserData(id, data) {
+            localStorage.setItem(`lucky_balance_${id}`, data.balance);
+            localStorage.setItem(`lucky_history_${id}`, JSON.stringify(data.history));
         }
 
         function showNotification(message, isError = false) {
@@ -834,6 +1147,8 @@
         // Cabinet functions
         function openCabinet() { document.getElementById('cabinetModal').classList.add('active'); }
         function closeCabinet() { document.getElementById('cabinetModal').classList.remove('active'); }
+        function closeCreatePrivateModal() { document.getElementById('createPrivateModal').classList.remove('active'); }
+        function closeJoinPrivateModal() { document.getElementById('joinPrivateModal').classList.remove('active'); }
         function closeGameModal() { document.getElementById('gameModal').classList.remove('active'); if (updateInterval) clearInterval(updateInterval); }
         
         function copyUserId() { navigator.clipboard.writeText(`LUCKY_${currentUserId}`); showNotification('✅ ID скопирован!'); }
@@ -848,9 +1163,10 @@
         
         function logout() { if (confirm('Выйти?')) { currentUserId = null; userData = null; updateUI(); closeCabinet(); showNotification('👋 Вы вышли'); } }
 
-        // Initialize
+        // ========== ЗАПУСК ==========
         initPublicRooms();
         loadPublicRooms();
+        loadPrivateRooms();
         currentUserId = generateNewId();
         userData = loadUserData(currentUserId);
         updateUI();
@@ -858,7 +1174,12 @@
         setInterval(() => {
             publicRooms.forEach((room, idx) => {
                 if (room.players.length === room.maxPlayers && !room.gameActive) {
-                    startGame(idx);
+                    startGame(room, false);
+                }
+            });
+            privateRooms.forEach((room, idx) => {
+                if (room.players.length === room.maxPlayers && !room.gameActive) {
+                    startGame(room, true);
                 }
             });
         }, 2000);
