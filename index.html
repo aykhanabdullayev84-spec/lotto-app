@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0A0F2A">
     <title>Lucky Number - Счастливый Номер</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -49,7 +50,6 @@
             background: linear-gradient(135deg, #F5B042, #FFC75F);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .logo p {
@@ -64,11 +64,6 @@
             border-radius: 40px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .balance-card:hover {
-            transform: scale(1.02);
         }
 
         .balance-card .value {
@@ -84,12 +79,6 @@
             color: #F5B042;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .cabinet-btn:hover {
-            background: rgba(245, 176, 66, 0.4);
-            transform: translateY(-2px);
         }
 
         /* Section Title */
@@ -113,7 +102,7 @@
             background: #1E1A3A;
             border-radius: 20px;
             padding: 20px;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -153,7 +142,8 @@
             padding: 10px;
             border-radius: 12px;
             margin: 12px 0;
-            font-size: 0.8em;
+            font-size: 0.85em;
+            text-align: center;
         }
 
         .prize-info span {
@@ -202,24 +192,6 @@
         .join-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-        }
-
-        /* History */
-        .history-list {
-            max-height: 300px;
-            overflow-y: auto;
-            background: rgba(30, 26, 58, 0.5);
-            border-radius: 20px;
-            padding: 8px;
-        }
-
-        .history-item {
-            background: rgba(255,255,255,0.05);
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 12px;
-            font-size: 0.8em;
-            border-left: 3px solid #F5B042;
         }
 
         /* Modal */
@@ -281,7 +253,6 @@
             border-radius: 40px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .btn-primary {
@@ -299,16 +270,6 @@
             font-size: 28px;
             cursor: pointer;
             color: #F5B042;
-        }
-
-        .warning-box {
-            background: rgba(231, 76, 60, 0.15);
-            border-left: 3px solid #e74c3c;
-            padding: 12px;
-            margin-top: 15px;
-            font-size: 0.7em;
-            text-align: left;
-            border-radius: 8px;
         }
 
         /* Game Modal */
@@ -357,12 +318,7 @@
         .player-card.winner {
             background: linear-gradient(135deg, #F5B042, #FFC75F);
             color: #0A0F2A;
-            animation: winnerPulse 1s ease infinite;
-        }
-
-        .player-number {
-            font-size: 1.5em;
-            font-weight: 800;
+            animation: pulse 0.5s;
         }
 
         .wheel {
@@ -391,7 +347,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1em;
             border: 2px solid #F5B042;
         }
 
@@ -422,7 +377,23 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Win Toast */
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(30, 26, 58, 0.5);
+            border-radius: 20px;
+            padding: 8px;
+        }
+
+        .history-item {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 12px;
+            font-size: 0.8em;
+            border-left: 3px solid #F5B042;
+        }
+
         .win-toast {
             position: fixed;
             top: 50%;
@@ -445,38 +416,19 @@
         }
 
         @keyframes winToastPop {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0;
-            }
-            80% {
-                transform: translate(-50%, -50%) scale(1.1);
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
+            0% { transform: translate(-50%,-50%) scale(0); opacity: 0; }
+            80% { transform: translate(-50%,-50%) scale(1.1); }
+            100% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
         }
 
-        @keyframes winnerPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 176, 66, 0.7); }
-            50% { box-shadow: 0 0 0 15px rgba(245, 176, 66, 0); }
-        }
-
-        .footer-note {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            font-size: 0.7em;
-            color: #666;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         @media (max-width: 768px) {
             .rooms-grid { grid-template-columns: 1fr; }
             .players-grid { grid-template-columns: repeat(2, 1fr); }
-            .modal-buttons { flex-direction: column; }
-            .header { flex-direction: column; text-align: center; }
             .win-toast-content { padding: 16px 24px; font-size: 1.2em; }
         }
     </style>
@@ -491,7 +443,7 @@
             </div>
             <div style="display: flex; gap: 15px; align-items: center;">
                 <div class="balance-card" onclick="openCabinet()">
-                    <div class="label">💰 Баланс</div>
+                    <div class="label">💰 Баллы</div>
                     <div class="value" id="headerBalance">0</div>
                     <div class="label">RUB</div>
                 </div>
@@ -499,42 +451,19 @@
             </div>
         </div>
 
-        <!-- Rooms -->
+        <!-- Rooms Section -->
         <div class="section-title">🎲 Выберите комнату</div>
         <div class="rooms-grid" id="roomsGrid"></div>
 
         <!-- History -->
         <div class="section-title">📜 История игр</div>
         <div class="history-list" id="historyList"></div>
-
-        <div class="footer-note">
-            🔒 Полная анонимность • Данные хранятся локально • Никакой регистрации<br>
-            💡 Для входа используйте ваш ID или создайте новый
-        </div>
     </div>
 
-    <!-- Модальное окно входа в личный кабинет -->
+    <!-- Modals -->
     <div id="cabinetModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeCabinet()">&times;</span>
-            <h2>🔐 Вход в личный кабинет</h2>
-            <p style="margin-bottom: 15px; color: #A0A3BD;">Введите ваш ID для входа или создайте новый аккаунт</p>
-            <input type="text" id="userIdInput" class="modal-input" placeholder="LUCKY_XXXXXXXXXXXX" autocomplete="off">
-            <div class="modal-buttons">
-                <button class="modal-btn btn-primary" onclick="login()">🔓 Войти</button>
-                <button class="modal-btn btn-secondary" onclick="createNewAccount()">✨ Создать новый ID</button>
-            </div>
-            <div class="warning-box">
-                💡 Нет ID? Нажмите "Создать новый ID" — система сгенерирует уникальный идентификатор.<br>
-                📌 Сохраните ID в надежном месте для восстановления доступа.
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно управления аккаунтом -->
-    <div id="accountModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeAccountModal()">&times;</span>
             <h2>👤 Личный кабинет</h2>
             <div style="text-align: center; margin: 20px 0;">
                 <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 50px; display: inline-block;">
@@ -548,19 +477,14 @@
                 <div class="modal-buttons" style="flex-direction: column;">
                     <button class="modal-btn btn-primary" onclick="deposit()">💳 Пополнить баланс</button>
                     <button class="modal-btn btn-primary" onclick="withdraw()">💸 Вывести средства</button>
-                    <button class="modal-btn btn-secondary" onclick="exportData()">📤 Экспорт данных (бэкап)</button>
+                    <button class="modal-btn btn-secondary" onclick="exportData()">📤 Экспорт данных</button>
                     <button class="modal-btn btn-secondary" onclick="importData()">📥 Импорт данных</button>
-                    <button class="modal-btn btn-secondary" onclick="saveIdToFile()">💾 Сохранить ID в файл</button>
-                    <button class="modal-btn btn-secondary" onclick="logout()" style="background: rgba(231,76,60,0.2); border-color: #e74c3c; color: #e74c3c;">🚪 Выйти из аккаунта</button>
+                    <button class="modal-btn btn-secondary" onclick="logout()" style="background: rgba(231,76,60,0.2); border-color: #e74c3c; color: #e74c3c;">🚪 Выйти</button>
                 </div>
-            </div>
-            <div class="warning-box">
-                ⚠️ Ваши данные хранятся локально. Сделайте резервную копию через "Экспорт данных"!
             </div>
         </div>
     </div>
 
-    <!-- Игровое модальное окно (рулетка) -->
     <div id="gameModal" class="game-modal">
         <div class="game-modal-content">
             <span class="close-modal" onclick="closeGameModal()">&times;</span>
@@ -578,151 +502,93 @@
     </div>
 
     <script>
-        // ========== КОНФИГУРАЦИЯ КОМНАТ ==========
-        const rooms = [
-            // 1000 RUB
-            { id: '1000_3', nominal: 1000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 2000 RUB", winners: 1, prize: 2000, fee: 1000 },
-            { id: '1000_5', nominal: 1000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 2000 RUB", winners: 2, prize: 2000, fee: 1000 },
-            { id: '1000_7', nominal: 1000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 2000 RUB", winners: 3, prize: 2000, fee: 1000 },
-            { id: '1000_10', nominal: 1000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×2000 + возврат 1000", winners: 3, prize: 2000, refund: 1000, fee: 3000 },
-            // 2000 RUB
-            { id: '2000_3', nominal: 2000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 4000 RUB", winners: 1, prize: 4000, fee: 2000 },
-            { id: '2000_5', nominal: 2000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 4000 RUB", winners: 2, prize: 4000, fee: 2000 },
-            { id: '2000_7', nominal: 2000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 4000 RUB", winners: 3, prize: 4000, fee: 2000 },
-            { id: '2000_10', nominal: 2000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×4000 + возврат 2000", winners: 3, prize: 4000, refund: 2000, fee: 6000 },
-            // 5000 RUB
-            { id: '5000_3', nominal: 5000, maxPlayers: 3, players: [], gameActive: false, prizeDesc: "1 победитель → 10000 RUB", winners: 1, prize: 10000, fee: 5000 },
-            { id: '5000_5', nominal: 5000, maxPlayers: 5, players: [], gameActive: false, prizeDesc: "2 победителя → по 10000 RUB", winners: 2, prize: 10000, fee: 5000 },
-            { id: '5000_7', nominal: 5000, maxPlayers: 7, players: [], gameActive: false, prizeDesc: "3 победителя → по 10000 RUB", winners: 3, prize: 10000, fee: 5000 },
-            { id: '5000_10', nominal: 5000, maxPlayers: 10, players: [], gameActive: false, prizeDesc: "3×10000 + возврат 5000", winners: 3, prize: 10000, refund: 5000, fee: 15000 }
-        ];
+        // ========== КОНФИГУРАЦИЯ КОМНАТ (БЕЗ КОМИССИИ В UI) ==========
+        const roomTypes = {
+            3: { winners: 1, prizeMultiplier: 2, refund: null, prizeDesc: "1 победитель → 2000 RUB" },
+            5: { winners: 2, prizeMultiplier: 2, refund: null, prizeDesc: "2 победителя → по 2000 RUB" },
+            7: { winners: 3, prizeMultiplier: 2, refund: null, prizeDesc: "3 победителя → по 2000 RUB" },
+            10: { winners: 3, prizeMultiplier: 2, refund: 1, prizeDesc: "3 победителя → по 2000 RUB + возврат 1000 RUB" }
+        };
 
-        // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+        const nominals = [1000, 2000, 5000];
+        const playerCounts = [3, 5, 7, 10];
+
+        let publicRooms = [];
         let currentUserId = null;
         let userData = null;
-        let currentRoom = null;
         let myPlayerId = null;
         let updateInterval = null;
 
-        // ========== ФУНКЦИИ УПРАВЛЕНИЯ ДАННЫМИ ==========
-        function generateNewId() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
-            let result = '';
-            for (let i = 0; i < 12; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
+        // Инициализация комнат
+        function initPublicRooms() {
+            publicRooms = [];
+            for (const nominal of nominals) {
+                for (const players of playerCounts) {
+                    const type = roomTypes[players];
+                    publicRooms.push({
+                        id: `${nominal}_${players}`,
+                        nominal: nominal,
+                        maxPlayers: players,
+                        players: [],
+                        gameActive: false,
+                        prizeDesc: type.prizeDesc,
+                        winners: type.winners,
+                        prize: nominal * type.prizeMultiplier,
+                        refund: type.refund ? nominal * type.refund : null,
+                        fee: nominal * 1 // комиссия скрыта от игроков
+                    });
+                }
             }
-            return result;
         }
 
-        function loadUserData(userId) {
+        // Функции пользователя
+        function generateNewId() { return Math.random().toString(36).substring(2, 14).toUpperCase(); }
+        
+        function loadUserData(id) {
             return {
-                balance: parseInt(localStorage.getItem(`lucky_balance_${userId}`)) || 10000,
-                history: JSON.parse(localStorage.getItem(`lucky_history_${userId}`) || '[]'),
-                rooms: JSON.parse(localStorage.getItem(`lucky_rooms_${userId}`) || '[]')
+                balance: parseInt(localStorage.getItem(`lucky_balance_${id}`)) || 10000,
+                history: JSON.parse(localStorage.getItem(`lucky_history_${id}`) || '[]')
             };
         }
-
-        function saveUserData(userId, data) {
-            localStorage.setItem(`lucky_balance_${userId}`, data.balance);
-            localStorage.setItem(`lucky_history_${userId}`, JSON.stringify(data.history));
-            localStorage.setItem(`lucky_rooms_${userId}`, JSON.stringify(data.rooms));
+        
+        function saveUserData(id, data) {
+            localStorage.setItem(`lucky_balance_${id}`, data.balance);
+            localStorage.setItem(`lucky_history_${id}`, JSON.stringify(data.history));
         }
 
-        function applyUserDataToRooms(savedRooms) {
-            if (savedRooms && savedRooms.length) {
-                savedRooms.forEach(savedRoom => {
-                    const existingRoom = rooms.find(r => r.id === savedRoom.id);
-                    if (existingRoom) {
-                        existingRoom.players = savedRoom.players || [];
-                        existingRoom.gameActive = savedRoom.gameActive || false;
-                    }
-                });
+        function savePublicRooms() { localStorage.setItem('lucky_rooms', JSON.stringify(publicRooms)); }
+        
+        function loadPublicRooms() {
+            const saved = localStorage.getItem('lucky_rooms');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (parsed && parsed.length) {
+                    parsed.forEach((savedRoom, idx) => {
+                        if (publicRooms[idx]) {
+                            publicRooms[idx].players = savedRoom.players || [];
+                            publicRooms[idx].gameActive = savedRoom.gameActive || false;
+                        }
+                    });
+                }
             }
         }
 
-        function saveCurrentRooms() {
-            if (userData) {
-                const roomsToSave = rooms.map(room => ({
-                    id: room.id,
-                    nominal: room.nominal,
-                    maxPlayers: room.maxPlayers,
-                    players: room.players,
-                    gameActive: room.gameActive
-                }));
-                userData.rooms = roomsToSave;
-                saveUserData(currentUserId, userData);
-            }
-        }
-
-        function updateUI() {
-            if (userData) {
-                document.getElementById('headerBalance').textContent = userData.balance;
-                document.getElementById('accountBalance').textContent = userData.balance;
-                document.getElementById('accountUserId').textContent = `LUCKY_${currentUserId}`;
-            } else {
-                document.getElementById('headerBalance').textContent = '0';
-            }
-            renderRooms();
-            renderHistory();
-        }
-
-        function showNotification(message, isError = false) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            notification.style.background = isError ? '#e74c3c' : '#2DD4BF';
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
-        }
-
-        // ========== УВЕДОМЛЕНИЯ О ПОБЕДЕ ==========
-        function showWinToast(amount, number) {
-            const toast = document.createElement('div');
-            toast.className = 'win-toast';
-            toast.innerHTML = `
-                <div class="win-toast-content">
-                    🎉✨ ПОБЕДА! ✨🎉<br>
-                    Ваш номер ${number} выиграл!<br>
-                    +${amount.toLocaleString()} RUB
-                </div>
-            `;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 5000);
-        }
-
-        function blinkTabTitle() {
-            const originalTitle = document.title;
-            let count = 0;
-            const interval = setInterval(() => {
-                document.title = count % 2 === 0 ? '🏆 ПОБЕДА! 🏆' : originalTitle;
-                count++;
-                if (count > 10) clearInterval(interval);
-            }, 500);
-        }
-
-        // Запрос разрешения на уведомления
-        if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
-            Notification.requestPermission();
-        }
-
-        // ========== ОТОБРАЖЕНИЕ КОМНАТ ==========
         function renderRooms() {
             const grid = document.getElementById('roomsGrid');
             if (!grid) return;
-
-            grid.innerHTML = rooms.map((room, idx) => `
+            
+            grid.innerHTML = publicRooms.map((room, idx) => `
                 <div class="room-card">
                     <div class="room-header">
                         <div class="room-bet">${room.nominal.toLocaleString()} <small>RUB</small></div>
                         <div class="room-players-count">👥 ${room.maxPlayers} игроков</div>
                     </div>
                     <div class="prize-info">
-                        🏆 ${room.prizeDesc}<br>
-                        💰 Комиссия: ${room.fee.toLocaleString()} RUB
+                        🏆 ${room.prizeDesc}
                     </div>
                     <div class="player-avatars">
                         ${room.players.slice(0, 8).map(p => `<div class="player-dot">${p.number}</div>`).join('')}
-                        ${room.players.length > 8 ? `<div class="player-dot">+${room.players.length - 8}</div>` : ''}
+                        ${room.players.length > 8 ? `<div class="player-dot">+${room.players.length-8}</div>` : ''}
                     </div>
                     <div>👥 ${room.players.length}/${room.maxPlayers} игроков</div>
                     <button class="join-btn" onclick="joinRoom(${idx})" 
@@ -735,35 +601,13 @@
             `).join('');
         }
 
-        function renderHistory() {
-            const container = document.getElementById('historyList');
-            if (!container) return;
-
-            if (!userData || userData.history.length === 0) {
-                container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">История игр пуста</div>';
-                return;
-            }
-
-            container.innerHTML = userData.history.slice(0, 20).map(game => `
-                <div class="history-item">
-                    <strong>📅 ${game.date}</strong><br>
-                    🎲 Комната ${game.nominal.toLocaleString()} RUB | 👥 ${game.maxPlayers} игроков<br>
-                    🏆 Победители: ${game.winners.map(w => `#${w.number} (${w.prize.toLocaleString()} RUB)`).join(', ')}<br>
-                    💰 Комиссия: ${game.platformFee.toLocaleString()} RUB<br>
-                    ${game.myWin > 0 ? `🎉 Ваш выигрыш: ${game.myWin.toLocaleString()} RUB!` : '😢 Вы не выиграли'}
-                </div>
-            `).join('');
-        }
-
-        // ========== ИГРОВАЯ ЛОГИКА ==========
         function joinRoom(roomIdx) {
+            const room = publicRooms[roomIdx];
             if (!userData) {
                 showNotification('Сначала войдите в личный кабинет!', true);
                 openCabinet();
                 return;
             }
-
-            const room = rooms[roomIdx];
             if (room.players.length >= room.maxPlayers || room.gameActive || userData.balance < room.nominal) {
                 showNotification('Нельзя войти в эту комнату', true);
                 return;
@@ -787,7 +631,7 @@
                 joinedAt: new Date().toISOString()
             });
 
-            saveCurrentRooms();
+            savePublicRooms();
             updateUI();
             showNotification(`✅ Вы вошли под номером ${number}! (${room.players.length}/${room.maxPlayers})`);
 
@@ -799,11 +643,10 @@
         }
 
         function openGameModal(roomIdx) {
-            const room = rooms[roomIdx];
-            currentRoom = { ...room, index: roomIdx };
-
+            const room = publicRooms[roomIdx];
             const modal = document.getElementById('gameModal');
             const currentPlayer = room.players.find(p => p.id === myPlayerId);
+            
             document.getElementById('modalRoomTitle').textContent = `Комната ${room.nominal.toLocaleString()} RUB - Ваш номер ${currentPlayer?.number || '?'}`;
             document.getElementById('maxPlayers').textContent = room.maxPlayers;
             document.getElementById('playerCount').textContent = room.players.length;
@@ -822,7 +665,7 @@
 
             if (updateInterval) clearInterval(updateInterval);
             updateInterval = setInterval(() => {
-                const updatedRoom = rooms[roomIdx];
+                const updatedRoom = publicRooms[roomIdx];
                 if (updatedRoom && document.getElementById('gameModal').classList.contains('active')) {
                     document.getElementById('playerCount').textContent = updatedRoom.players.length;
                     if (updatedRoom.players.length === updatedRoom.maxPlayers && !updatedRoom.gameActive) {
@@ -834,10 +677,10 @@
         }
 
         function startGame(roomIdx) {
-            const room = rooms[roomIdx];
+            const room = publicRooms[roomIdx];
             if (room.gameActive) return;
             room.gameActive = true;
-            saveCurrentRooms();
+            savePublicRooms();
 
             const modal = document.getElementById('gameModal');
             if (modal && modal.classList.contains('active')) {
@@ -849,7 +692,7 @@
         }
 
         function spinWheel(roomIdx) {
-            const room = rooms[roomIdx];
+            const room = publicRooms[roomIdx];
             const totalPot = room.nominal * room.players.length;
             const platformFee = room.fee;
 
@@ -897,16 +740,9 @@
                         return p;
                     });
 
-                    // ========== УВЕДОМЛЕНИЕ О ПОБЕДЕ ==========
                     if (myWin > 0) {
                         showWinToast(myWin, myWinningNumber);
                         blinkTabTitle();
-                        if (Notification.permission === 'granted') {
-                            new Notification('🏆 ПОБЕДА в Lucky Number! 🏆', {
-                                body: `Ваш номер ${myWinningNumber} выиграл ${myWin.toLocaleString()} RUB!`,
-                                icon: 'https://cdn-icons-png.flaticon.com/512/190/190411.png'
-                            });
-                        }
                     }
 
                     const gameRecord = {
@@ -914,10 +750,8 @@
                         nominal: room.nominal,
                         maxPlayers: room.maxPlayers,
                         totalPot: totalPot,
-                        platformFee: platformFee,
                         winners: winners.map(w => ({ number: w.player.number, prize: w.prize })),
-                        myWin: myWin,
-                        myNumber: myWinningNumber
+                        myWin: myWin
                     };
                     userData.history.unshift(gameRecord);
                     saveUserData(currentUserId, userData);
@@ -927,193 +761,107 @@
                         <div class="result-box">
                             <h3>🎉 РЕЗУЛЬТАТЫ РОЗЫГРЫША! 🎉</h3>
                             <p><strong>Общий банк:</strong> ${totalPot.toLocaleString()} RUB</p>
-                            <p><strong>💰 Комиссия платформы:</strong> ${platformFee.toLocaleString()} RUB</p>
                             <hr>
                             <h4>🏆 Победители:</h4>
                             ${winners.map(w => `🎲 Номер ${w.player.number} - выиграл ${w.prize.toLocaleString()} RUB`).join('<br>')}
-                            ${myWin ? `<h3 style="margin-top: 15px; font-size: 1.5em;">✨ ВЫ ВЫИГРАЛИ ${myWin.toLocaleString()} RUB! ✨</h3>` : '<p style="margin-top: 15px;">😢 В следующий раз повезет!</p>'}
+                            ${myWin ? `<h3 style="margin-top: 15px;">✨ ВЫ ВЫИГРАЛИ ${myWin.toLocaleString()} RUB! ✨</h3>` : '<p style="margin-top: 15px;">😢 В следующий раз повезет!</p>'}
                         </div>
                     `;
 
-                    rooms[roomIdx] = { ...room, players: [], gameActive: false };
-                    saveCurrentRooms();
+                    publicRooms[roomIdx] = { ...room, players: [], gameActive: false };
+                    savePublicRooms();
                     updateUI();
+                    renderHistory();
 
                     setTimeout(() => closeGameModal(), 8000);
                 }, 3000);
             }
         }
 
-        function closeGameModal() {
-            const modal = document.getElementById('gameModal');
-            if (modal) {
-                modal.classList.remove('active');
-                document.getElementById('gameResult').innerHTML = '';
-                currentRoom = null;
-                if (updateInterval) clearInterval(updateInterval);
+        function renderHistory() {
+            const container = document.getElementById('historyList');
+            if (!userData || userData.history.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">История игр пуста</div>';
+                return;
             }
+            container.innerHTML = userData.history.slice(0, 15).map(game => `
+                <div class="history-item">
+                    <strong>📅 ${game.date}</strong><br>
+                    🎲 Комната ${game.nominal.toLocaleString()} RUB | 👥 ${game.maxPlayers} игроков<br>
+                    🏆 Победители: ${game.winners.map(w => `#${w.number} (${w.prize.toLocaleString()} RUB)`).join(', ')}<br>
+                    ${game.myWin > 0 ? `🎉 Ваш выигрыш: ${game.myWin.toLocaleString()} RUB!` : '😢 Вы не выиграли'}
+                </div>
+            `).join('');
         }
 
-        // ========== УПРАВЛЕНИЕ АККАУНТОМ ==========
-        function openCabinet() {
-            document.getElementById('cabinetModal').classList.add('active');
-        }
-
-        function closeCabinet() {
-            document.getElementById('cabinetModal').classList.remove('active');
-            document.getElementById('userIdInput').value = '';
-        }
-
-        function closeAccountModal() {
-            document.getElementById('accountModal').classList.remove('active');
-        }
-
-        function login() {
-            let inputId = document.getElementById('userIdInput').value.trim().toUpperCase();
-            if (inputId.startsWith('LUCKY_')) inputId = inputId.substring(6);
-            if (inputId.length === 12 && /^[A-Z0-9]+$/.test(inputId)) {
-                currentUserId = inputId;
-                userData = loadUserData(currentUserId);
-                applyUserDataToRooms(userData.rooms);
-                updateUI();
-                closeCabinet();
-                document.getElementById('accountModal').classList.add('active');
-                showNotification(`✅ Добро пожаловать! Баланс: ${userData.balance} RUB`);
-            } else {
-                showNotification('❌ Неверный формат ID. ID должен быть 12 символов (буквы и цифры)', true);
+        function updateUI() {
+            if (userData) {
+                document.getElementById('headerBalance').textContent = userData.balance;
+                document.getElementById('accountBalance').textContent = userData.balance;
+                document.getElementById('accountUserId').textContent = `LUCKY_${currentUserId}`;
             }
+            renderRooms();
+            renderHistory();
         }
 
-        function createNewAccount() {
-            currentUserId = generateNewId();
-            userData = { balance: 10000, history: [], rooms: [] };
-            saveUserData(currentUserId, userData);
-            rooms.forEach(room => { room.players = []; room.gameActive = false; });
-            updateUI();
-            closeCabinet();
-            document.getElementById('accountModal').classList.add('active');
-            showNotification(`✨ Новый аккаунт создан! Ваш ID: LUCKY_${currentUserId}. Сохраните его!`);
+        function showNotification(message, isError = false) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            notification.style.background = isError ? '#e74c3c' : '#2DD4BF';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
         }
 
-        function logout() {
-            if (confirm('Вы уверены, что хотите выйти? Данные останутся сохраненными.')) {
-                currentUserId = null;
-                userData = null;
-                rooms.forEach(room => { room.players = []; room.gameActive = false; });
-                updateUI();
-                closeAccountModal();
-                showNotification('👋 Вы вышли из аккаунта');
-            }
+        function showWinToast(amount, number) {
+            const toast = document.createElement('div');
+            toast.className = 'win-toast';
+            toast.innerHTML = `<div class="win-toast-content">🎉✨ ПОБЕДА! ✨🎉<br>Ваш номер ${number} выиграл!<br>+${amount.toLocaleString()} RUB</div>`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
         }
 
-        function copyUserId() {
-            navigator.clipboard.writeText(`LUCKY_${currentUserId}`);
-            showNotification('✅ ID скопирован!');
+        function blinkTabTitle() {
+            const originalTitle = document.title;
+            let count = 0;
+            const interval = setInterval(() => {
+                document.title = count % 2 === 0 ? '🏆 ПОБЕДА! 🏆' : originalTitle;
+                count++;
+                if (count > 10) clearInterval(interval);
+            }, 500);
         }
 
-        function saveIdToFile() {
-            const data = { type: 'lucky_number_id_backup', userId: currentUserId, createdAt: new Date().toISOString() };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `lucky_number_id_${currentUserId}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            showNotification('💾 ID сохранен в файл!');
-        }
+        // Cabinet functions
+        function openCabinet() { document.getElementById('cabinetModal').classList.add('active'); }
+        function closeCabinet() { document.getElementById('cabinetModal').classList.remove('active'); }
+        function closeGameModal() { document.getElementById('gameModal').classList.remove('active'); if (updateInterval) clearInterval(updateInterval); }
+        
+        function copyUserId() { navigator.clipboard.writeText(`LUCKY_${currentUserId}`); showNotification('✅ ID скопирован!'); }
+        
+        function deposit() { const amount = prompt('Введите сумму:', '1000'); if (amount && !isNaN(amount) && parseInt(amount) > 0) { userData.balance += parseInt(amount); saveUserData(currentUserId, userData); updateUI(); showNotification(`✅ Пополнено на ${parseInt(amount).toLocaleString()} RUB`); } }
+        
+        function withdraw() { const amount = prompt('Введите сумму вывода:', '1000'); if (amount && !isNaN(amount) && parseInt(amount) > 0 && userData.balance >= parseInt(amount)) { userData.balance -= parseInt(amount); saveUserData(currentUserId, userData); updateUI(); showNotification(`✅ Заявка на вывод ${parseInt(amount).toLocaleString()} RUB принята`); } else { showNotification('❌ Недостаточно средств', true); } }
+        
+        function exportData() { const data = { userId: currentUserId, balance: userData.balance, history: userData.history }; const blob = new Blob([JSON.stringify(data)], {type: 'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `lucky_backup_${currentUserId}.json`; a.click(); showNotification('📤 Данные экспортированы'); }
+        
+        function importData() { const input = document.createElement('input'); input.type = 'file'; input.onchange = e => { const file = e.target.files[0]; const reader = new FileReader(); reader.onload = ev => { const data = JSON.parse(ev.target.result); if (data.userId) currentUserId = data.userId; if (data.balance) userData.balance = data.balance; if (data.history) userData.history = data.history; saveUserData(currentUserId, userData); updateUI(); showNotification('✅ Данные импортированы'); }; reader.readAsText(file); }; input.click(); }
+        
+        function logout() { if (confirm('Выйти?')) { currentUserId = null; userData = null; updateUI(); closeCabinet(); showNotification('👋 Вы вышли'); } }
 
-        function exportData() {
-            const exportData = {
-                version: '1.0',
-                exportDate: new Date().toISOString(),
-                userId: currentUserId,
-                balance: userData.balance,
-                history: userData.history,
-                rooms: rooms.map(room => ({ id: room.id, nominal: room.nominal, maxPlayers: room.maxPlayers, players: room.players, gameActive: room.gameActive }))
-            };
-            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `lucky_number_backup_${currentUserId}_${Date.now()}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            showNotification('📤 Данные экспортированы!');
-        }
+        // Initialize
+        initPublicRooms();
+        loadPublicRooms();
+        currentUserId = generateNewId();
+        userData = loadUserData(currentUserId);
+        updateUI();
 
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'application/json';
-            input.onchange = (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    try {
-                        const imported = JSON.parse(event.target.result);
-                        if (imported.userId) {
-                            currentUserId = imported.userId;
-                        }
-                        if (imported.balance !== undefined) userData.balance = imported.balance;
-                        if (imported.history) userData.history = imported.history;
-                        if (imported.rooms) {
-                            imported.rooms.forEach(importedRoom => {
-                                const existingRoom = rooms.find(r => r.id === importedRoom.id);
-                                if (existingRoom) {
-                                    existingRoom.players = importedRoom.players || [];
-                                    existingRoom.gameActive = importedRoom.gameActive || false;
-                                }
-                            });
-                        }
-                        saveUserData(currentUserId, userData);
-                        updateUI();
-                        showNotification('✅ Данные успешно импортированы!');
-                    } catch (err) {
-                        showNotification('❌ Ошибка импорта: неверный формат файла', true);
-                    }
-                };
-                reader.readAsText(file);
-            };
-            input.click();
-        }
-
-        function deposit() {
-            const amount = prompt('Введите сумму пополнения (RUB):', '1000');
-            if (amount && !isNaN(amount) && parseInt(amount) > 0) {
-                userData.balance += parseInt(amount);
-                saveUserData(currentUserId, userData);
-                updateUI();
-                showNotification(`✅ Баланс пополнен на ${parseInt(amount).toLocaleString()} RUB`);
-            }
-        }
-
-        function withdraw() {
-            const amount = prompt('Введите сумму вывода (RUB):', '1000');
-            if (amount && !isNaN(amount) && parseInt(amount) > 0) {
-                if (userData.balance >= parseInt(amount)) {
-                    userData.balance -= parseInt(amount);
-                    saveUserData(currentUserId, userData);
-                    updateUI();
-                    showNotification(`✅ Заявка на вывод ${parseInt(amount).toLocaleString()} RUB принята. Для получения средств свяжитесь с поддержкой.`);
-                } else {
-                    showNotification('❌ Недостаточно средств!', true);
-                }
-            }
-        }
-
-        // ========== ИНИЦИАЛИЗАЦИЯ ==========
-        function checkFullRooms() {
-            rooms.forEach((room, idx) => {
+        setInterval(() => {
+            publicRooms.forEach((room, idx) => {
                 if (room.players.length === room.maxPlayers && !room.gameActive) {
                     startGame(idx);
                 }
             });
-        }
-
-        setInterval(checkFullRooms, 2000);
-        updateUI();
+        }, 2000);
     </script>
 </body>
 </html>
