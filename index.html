@@ -253,22 +253,42 @@
             color: #F5B042;
         }
 
-        .modal-input {
-            width: 100%;
-            padding: 14px;
+        /* Кнопки выбора для мобильных */
+        .option-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+        
+        .option-btn {
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px 20px;
             border-radius: 40px;
             color: white;
-            font-size: 1em;
-            margin: 10px 0;
-            text-align: center;
-        }
-
-        select.modal-input {
-            appearance: none;
+            font-weight: 600;
             cursor: pointer;
-            background: rgba(255,255,255,0.1);
+            transition: all 0.2s;
+            font-size: 0.9em;
+        }
+        
+        .option-btn.selected {
+            background: linear-gradient(135deg, #F5B042, #FFC75F);
+            color: #0A0F2A;
+            border-color: #F5B042;
+        }
+        
+        .option-group {
+            margin: 15px 0;
+        }
+        
+        .option-group label {
+            display: block;
+            font-size: 0.8em;
+            color: #A0A3BD;
+            margin-bottom: 8px;
         }
 
         .modal-buttons {
@@ -487,6 +507,8 @@
             .tabs { justify-content: center; }
             .header { flex-direction: column; text-align: center; }
             .modal-buttons { flex-direction: column; }
+            .option-buttons { flex-direction: column; }
+            .option-btn { text-align: center; }
         }
     </style>
 </head>
@@ -521,30 +543,34 @@
         <div class="history-list" id="historyList"></div>
     </div>
 
+    <!-- Модальное окно создания приватной комнаты (с кнопками вместо select) -->
     <div id="createPrivateModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeCreatePrivateModal()">&times;</span>
             <h2>✨ Создать комнату</h2>
             <p style="font-size: 0.85em; margin-bottom: 10px;">Выберите параметры игры</p>
-            <div style="margin: 10px 0;">
-                <label style="font-size: 0.8em; color: #A0A3BD;">💰 Ставка:</label>
-                <select id="privateNominal" class="modal-input">
-                    <option value="1000">1 000 RUB</option>
-                    <option value="2000">2 000 RUB</option>
-                    <option value="5000">5 000 RUB</option>
-                </select>
+            
+            <div class="option-group">
+                <label>💰 Ставка:</label>
+                <div class="option-buttons" id="nominalOptions">
+                    <button class="option-btn" data-nominal="1000">1 000 RUB</button>
+                    <button class="option-btn" data-nominal="2000">2 000 RUB</button>
+                    <button class="option-btn" data-nominal="5000">5 000 RUB</button>
+                </div>
             </div>
-            <div style="margin: 10px 0;">
-                <label style="font-size: 0.8em; color: #A0A3BD;">👥 Игроков:</label>
-                <select id="privatePlayers" class="modal-input">
-                    <option value="3">3 игрока</option>
-                    <option value="5">5 игроков</option>
-                    <option value="7">7 игроков</option>
-                    <option value="10">10 игроков</option>
-                </select>
+            
+            <div class="option-group">
+                <label>👥 Количество игроков:</label>
+                <div class="option-buttons" id="playersOptions">
+                    <button class="option-btn" data-players="3">3 игрока</button>
+                    <button class="option-btn" data-players="5">5 игроков</button>
+                    <button class="option-btn" data-players="7">7 игроков</button>
+                    <button class="option-btn" data-players="10">10 игроков</button>
+                </div>
             </div>
+            
             <div class="modal-buttons">
-                <button class="modal-btn btn-primary" onclick="createPrivateRoom()">🚀 Создать</button>
+                <button class="modal-btn btn-primary" onclick="createPrivateRoomFromButtons()">🚀 Создать</button>
                 <button class="modal-btn btn-secondary" onclick="closeCreatePrivateModal()">Отмена</button>
             </div>
         </div>
@@ -605,6 +631,10 @@
     </div>
 
     <script>
+        // ========== ПЕРЕМЕННЫЕ ==========
+        let selectedNominal = 1000;
+        let selectedPlayers = 3;
+        
         // ========== КОНФИГУРАЦИЯ ==========
         const roomTypes = {
             3: { winners: 1, prizeMultiplier: 2, refund: null, prizeDesc: "1 победитель → 2000 RUB" },
@@ -645,27 +675,40 @@
             }
         }
 
-        function generateInviteCode() {
-            return Math.random().toString(36).substring(2, 8).toUpperCase();
+        // ========== НАСТРОЙКА КНОПОК В МОДАЛЬНОМ ОКНЕ ==========
+        function setupModalButtons() {
+            // Номиналы
+            document.querySelectorAll('#nominalOptions .option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#nominalOptions .option-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedNominal = parseInt(this.dataset.nominal);
+                });
+                // Выбираем первый по умолчанию
+                if (btn.dataset.nominal == 1000) btn.classList.add('selected');
+            });
+            
+            // Количество игроков
+            document.querySelectorAll('#playersOptions .option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#playersOptions .option-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedPlayers = parseInt(this.dataset.players);
+                });
+                // Выбираем первый по умолчанию
+                if (btn.dataset.players == 3) btn.classList.add('selected');
+            });
         }
 
-        function createPrivateRoom() {
+        function createPrivateRoomFromButtons() {
             if (!userData) {
                 showNotification('Сначала войдите в личный кабинет!', true);
                 openCabinet();
                 return;
             }
-
-            const nominalSelect = document.getElementById('privateNominal');
-            const playersSelect = document.getElementById('privatePlayers');
             
-            if (!nominalSelect || !playersSelect) {
-                showNotification('Ошибка выбора параметров', true);
-                return;
-            }
-            
-            const nominal = parseInt(nominalSelect.value);
-            const players = parseInt(playersSelect.value);
+            const nominal = selectedNominal;
+            const players = selectedPlayers;
             const type = roomTypes[players];
             const inviteCode = generateInviteCode();
             
@@ -689,6 +732,10 @@
             savePrivateRooms();
             closeCreatePrivateModal();
             showInviteCodeModal(inviteCode, nominal, players);
+        }
+
+        function generateInviteCode() {
+            return Math.random().toString(36).substring(2, 8).toUpperCase();
         }
 
         function showInviteCodeModal(code, nominal, players) {
@@ -860,21 +907,16 @@
             setTimeout(() => spinWheel(room, isPrivate), 2000);
         }
 
-        // ========== ИСПРАВЛЕННАЯ ФУНКЦИЯ SPINWHEEL ==========
         function spinWheel(room, isPrivate) {
             const totalPot = room.nominal * room.players.length;
-            
-            // Получаем список номеров, которые есть в комнате
             const availableNumbers = room.players.map(p => p.number);
             
-            // Перемешиваем игроков
             const players = [...room.players];
             for (let i = players.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [players[i], players[j]] = [players[j], players[i]];
             }
 
-            // Определяем победителей
             const winners = [];
             for (let i = 0; i < room.winners && i < players.length; i++) {
                 winners.push({ player: players[i], prize: room.prize });
@@ -889,7 +931,6 @@
             if (wheel) {
                 wheel.classList.add('spinning');
                 
-                // Анимация: показываем случайные номера ТОЛЬКО из доступных
                 const spinInterval = setInterval(() => {
                     const randomIndex = Math.floor(Math.random() * availableNumbers.length);
                     const randomNum = availableNumbers[randomIndex];
@@ -1141,7 +1182,12 @@
 
         function openCabinet() { document.getElementById('cabinetModal').classList.add('active'); }
         function closeCabinet() { document.getElementById('cabinetModal').classList.remove('active'); }
+        function openCreatePrivateModal() { 
+            document.getElementById('createPrivateModal').classList.add('active');
+            setupModalButtons();
+        }
         function closeCreatePrivateModal() { document.getElementById('createPrivateModal').classList.remove('active'); }
+        function openJoinPrivateModal() { document.getElementById('joinPrivateModal').classList.add('active'); }
         function closeJoinPrivateModal() { document.getElementById('joinPrivateModal').classList.remove('active'); }
         function closeGameModal() { document.getElementById('gameModal').classList.remove('active'); if (updateInterval) clearInterval(updateInterval); }
         
